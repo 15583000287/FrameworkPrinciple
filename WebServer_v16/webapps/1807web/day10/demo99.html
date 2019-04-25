@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo99好友列表</title>
+<script type="text/javascript">
+	//隐藏所有className为c1的ul
+	onload = function(){
+		var uls = document.getElementsByClassName("c1");
+		for(var i=0;i<uls.length;i++){
+			uls[i].style.display = "none";
+		}
+	}
+	
+	function myfn(li){
+		var uls = document.getElementsByClassName("c1");
+		for(var i=0;i<uls.length;i++){
+			uls[i].style.display = "none";
+		}
+		var ul = li.getElementsByTagName("ul")[0];
+		if(ul.style.display=="none"){
+			ul.style.display="block";
+		}else{
+			ul.style.display=="none";
+		}
+	}
+</script>
+</head>
+<body>
+	<ul>
+		<li onclick="myfn(this)">老师
+			<ul class="c1">
+				<li>张老师</li>
+				<li>李老师</li>
+				<li>王老师</li>
+			</ul>
+		</li>
+		<li onclick="myfn(this)">同学
+			<ul class="c1">
+				<li>张同学</li>
+				<li>王同学</li>
+				<li>徐同学</li>
+			</ul>
+		</li>
+		<li onclick="myfn(this)">家人
+			<ul class="c1">
+				<li>爸爸</li>
+				<li>妈妈</li>
+				<li>妹妹</li>
+			</ul>
+		</li>
+	</ul>
+</body>
+</html>

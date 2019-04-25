@@ -1,0 +1,135 @@
+#事件取消
+	-事件属性中直接return false则取消当前事件
+#DHTML
+	Dynamic(动态)HTML   HTML+CSS+JS得到的一个动态页面(不是新技术)
+	包括：
+		BOM(Browser Object Model):包含和浏览器相关的各种对象
+		DOM(Document Object Model):包含和页面相关的各种对象
+		
+#BOM 浏览器对象模型
+	window（窗口）：
+		-里面的属性和方法是全局属性和全局方法，使用时可以省略掉window。
+	window下常用属性和函数：
+		parseInt()和parseFloat()
+		alert()	弹出框
+		confirm() 确认框(true/false)
+		prompt() 弹出输入框(返回输入的值/null)
+		isNaN() 判断是否是数字
+	
+window下的：	
+	#location:位置(window下的)
+			-href() 获取和设置浏览器访问的地址
+			-reload() 页面重新加载(刷新)
+	#history:历史
+			此历史代表当前窗口的历史
+			length:获取的当前窗口的访问历史长度
+			back(): 前往上一页
+			forward(): 前往下一页
+			go(num); 0代表当前页面   1代表下一个页面 -1代表上一个页面
+	#screen:屏幕
+			width/height 屏幕宽高
+			availWidth/availHeight 屏幕可用宽高
+	#navigator 导航/帮助
+			userAgent 得到浏览器的版本信息
+	
+	#和window相关事件
+	onclick  onblur  onsubmit	
+	window.onclick = function(){}  点击页面任何位置时触发
+	onload = function(){} 加载完成事件，当页面加载完成时执行
+	onfocus = function(){} 获取焦点事件，页面切换到激活状态时执行
+	onblur = function(){} 失去焦点事件，页面切换到非激活状态时执行
+	#onresize = function(){} 当窗口尺寸发生改变事件
+	
+	eval() 将传递进的字符串按照js代码执行
+	案例：计算器
+	
+--通过js给元素添加样式
+	注意：只能获取和设置内联样式的值，不能获取非内联样式的值
+	id.style.color="red"; 
+	alert(id.style.color); 
+	
+--定时器
+	var time = setInterval(function(){},ms)  执行多次
+	关闭定时器  clearInterval(time);
+	var time2 = setTimeout(function(){},ms); 执行一次
+	
+	
+	
+##DOM对象  主要对元素进行增删改
+	查找元素
+		通过id查找		getElementById()
+		通过标签名查找	getElementsByTagName()
+		通过name查找	getElementsByName()
+		通过className查找	getElementsByClassName()
+		获取body		document.body
+					div.innerText +=
+					div.innerHTML +=
+	创建元素：document.createElement("div");
+	添加元素：父元素.appendChild(元素) 默认从末，尾添加
+	插入元素：父元素.insertBefore(新元素，弟弟元素)
+	删除元素：父元素.removeChild(元素)
+	
+	#案例：省市联动(每次清空元素直接使用innerHTML="<option>亲选择</option>"来覆盖)
+	
+### 方法中传递this表示当前事件源
+		# onclick="myfn(this)"
+	通过标签名获取里面的元素 
+		# var img = div.getElementsByTagName("img")[0]; 
+	#案例：1.点击显示图片/再点击隐藏(判断div.style.display=="none")
+		2.模拟qq好友类表  折叠/展开
+		
+		
+		
+		
+		
+		
+		
+--------------day11  事件 ----------------------
+#状态改变事件
+	事件指一些特定的是时间点。时间包括：window相关的时间(状态改变事件)，鼠标相关，键盘相关
+	onclick 点击事件
+	onload 加载时间
+	onfocus 获取焦点事件
+	onblur 失去焦点事件
+	onchange 值发生改变事件(案例：省市联动)
+	onsubmit 表单提交事件
+	*onresize 窗口尺寸发生改变
+	
+#鼠标事件：
+	onmousedown 鼠标按下事件
+	onmouseup 鼠标抬起
+	onmousemove 鼠标移动
+	
+#键盘相关事件
+	onkeydown 键盘按下事件
+	onkeyup 键盘抬起
+	
+#event事件对象
+	事件对象包含当前事件的相关信息(鼠标当前坐标，获取事件源)
+	当前坐标:event.clientX;
+		    event.clientY;
+	获取事件源: var obj = event.target;
+		   var obj = event.event.srcElement;
+		  #var obj = event.target || event.srcElement; (解决浏览器兼容性  哪个有值取哪个)
+		  
+	在键盘事件中： 
+		获得按下的键盘编码  event.keyCode 
+		将键盘编码转成字符  var str = String.fromCharCode(event.keyCode);
+		#案例：回车登录
+#事件绑定
+	1.在标签中，通过事件属性绑定事件  onclick="myfn()" 
+	2.通过js代码动态绑定事件  btn1.onclick=function(){}  (好处：js代码与html分离)
+	
+#事件取消
+	在事件方法中 return false;
+		
+#事件传递(事件冒泡)
+	如果同一区域内有多个事件响应，响应顺序是类似气泡，从下往上，也就是从底层元素往上级元素响应，这个传递过程称为事件冒泡。
+	应用场景：如果一个区域内多个元素需要添加相同的事件，通过事件冒泡的特性只需要在多个元素的祖先元素上添加一个事件即可，从而节省代码。
+
+	案例：订单练习（判断元素类型）	
+	
+#注意：如果在动态绑定事件中 this代表当前事件源
+	如果在非动态绑定事件中this代表的是window
+	
+	

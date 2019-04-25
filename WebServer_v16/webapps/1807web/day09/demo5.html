@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>calc</title>
+<script type="text/javascript">
+	function myfn(a){
+		if(a=="="){
+			i1.value = eval(i1.value);
+			i1.className="i_s";	
+		}else if(a=="c"){
+			i1.value="";
+		}else{
+			i1.value += a;
+		}
+	}
+</script>
+<style type="text/css">
+	.i_s{
+		font-size: 25px;
+		font-weight: bold;
+	}
+	#big{
+		width: 425px;
+		height: 525px;
+		border: 5px solid gray;
+		padding:3px;
+		margin: 0 auto;
+		border-radius:4px;
+		text-align: center;
+	}
+	div>div{
+		width: 90px;
+		line-height: 90px;
+		border: 3px solid gray;
+		display: inline-block;
+		margin: 3px 3px;
+		border-radius:4px;
+		vertical-align: middle;
+	}
+	div>input{
+		width: 310px;
+		display: inline-block;
+		border: 3px solid gray;
+		line-height: 86px;
+		margin-top: 10px;
+		font-size: 18px;
+	}
+</style>
+</head>
+<body>
+	<div id="big">
+		<input type="text" readonly="readonly" id="i1">
+		<div id="dc" onclick="myfn('c')">c</div><br>	
+		<div id="d7" onclick="myfn('7')">7</div>
+		<div id="d8" onclick="myfn('8')">8</div>
+		<div id="d9" onclick="myfn('9')">9</div>
+		<div id="d_a" onclick="myfn('+')">/</div><br>
+		<div id="d4" onclick="myfn('4')">4</div>
+		<div id="d5" onclick="myfn('5')">5</div>
+		<div id="d6" onclick="myfn('6')">6</div>
+		<div id="d_b" onclick="myfn('*')">*</div><br>
+		<div id="d1" onclick="myfn('1')">1</div>
+		<div id="d2" onclick="myfn('2')">2</div>
+		<div id="d3" onclick="myfn('3')">3</div>
+		<div id="d_c" onclick="myfn('-')">-</div><br>
+		<div id="d0" onclick="myfn('0')">0</div>
+		<div id="d_d" onclick="myfn('.')">.</div>
+		<div id="d_e" onclick="myfn('=')">=</div>
+		<div id="d_f" onclick="myfn('+')">+</div>
+	</div>
+</body>
+</html>

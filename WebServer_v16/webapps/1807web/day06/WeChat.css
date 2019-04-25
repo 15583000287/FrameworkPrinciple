@@ -1,0 +1,211 @@
+@charset "UTF-8";
+  /*导航条样式*/
+        header{
+            background-color: rgb(68, 68, 68);
+            width: 100%;
+        }
+        #head{
+            width: 1000px;
+            height: 75px;
+            margin: 0 auto;
+            background-color: rgb(68, 68, 68);
+        }
+        #head_left{
+            float: left;
+        }
+        #head_left>img{
+            width: 130px;
+            height: 44px;
+            margin-top: 14px;
+        }
+        #head_right{
+            float: right;
+        }
+        #head_right li{
+            height: 33px;
+            float: right;
+            font-size: 14px;
+            font-family: 微软雅黑;
+            list-style-type: none;
+            margin-left: 25px;
+            line-height: 33px;
+            color: #ffffff;
+            padding: 0px 2px;
+        }
+        #head_right li:hover{
+            text-align: center;
+            background-color: rgba(20, 20, 20, 0.65);
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        #check{
+            display: block;
+            font-weight: bold;
+            width: 50px;
+            text-align: center;
+            background-color: rgba(20, 20, 20, 0.65);
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        /*中间样式*/
+        article{
+            background-color:rgb(221,221,221) ;
+            width: 100%;
+        }
+        #context{
+            width: 1000px;
+            height: 424px;
+            margin: 0 auto;
+            background-color:rgb(221,221,221) ;
+        }
+        #context_left{
+            float: left;
+        }
+        #context_left>span {
+            display: block;
+             font-size:26px ;
+            margin-top: 55px;
+        }
+        #context_left>p{
+            display: block;
+            font-size: 14px;
+            font-family: 微软雅黑;
+            color: #979797;
+            line-height: 22.7px;
+            margin-bottom: 13px;
+        }
+        #context_left>a{
+            display: block;
+            text-decoration: none;
+            width: 224px;
+            height: 64px;
+            color: white;
+            background-color: green;
+            line-height: 64px;
+            font-size: 16px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        #context_left>a:hover{
+            background-color: #439700;
+        }
+        #context_left>ul{
+            color:#609700 ;
+        }
+        #context_left>ul>li>a{
+            text-decoration: none;
+            color: #609700;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        #context_right{
+            float: right;
+        }
+        #context_right>img{
+          position: relative;
+            right: 65px;
+            top: 30px;
+        }
+        #context_right>span{
+            position: relative;
+            text-decoration: none;
+            font-size: 14px;
+            line-height: 1.8;
+            left: 105px;
+            bottom: -36px;
+        }
+        #context_right>a{
+            position: relative;
+            text-decoration: none;
+            color: #609700;
+            font-size: 14px;
+            line-height: 1.8;
+           left: 97px;
+            bottom: -39px;
+        }
+        
+        
+      /************底部样式*************/ 
+     footer{
+		width:1000px;
+		margin:0 auto;
+		overflow:hidden;
+	}
+	#botton_left a,#botton_right a{
+		color: #609700;
+		text-decoration: none;
+		font-size: 14px;
+	}
+	footer p{
+		margin: 0px;
+		margin: 5px 0;
+	}
+	footer a>img{
+		width: 150px;
+		height: 100px;
+		
+	}
+	footer h2{
+		width: 200px;
+		font-size: 14px;
+	}
+	#botton_left>ul{
+		font-size: 14px;
+		list-style-type: none;
+	}
+	#botton_left>ul>li{
+		float: left;
+	}
+	
+	
+	#botton_right{
+		width: 300px;
+		position:relative;
+		left:700px;
+		top:-200px;
+	}
+	#botton_right span{
+		color: red;
+	}
+	#botton_right h2{
+		margin-left: 25px;
+	}
+	#botton_right a{
+		display:inline-block;
+		height: 25px;
+	}
+	#botton_right>ul>li{
+		color: #666;
+	}
+	#footlogo{	
+		margin-left: 22px;
+		margin-top: 8px;
+	}
+	#footlogo>a{
+		position: relative;
+		top:-10px;
+	}
+	#footlogo>img{
+		width:25px;
+		height: 25px;
+	}
+	#foot{
+		color:#666;
+		margin-top:-185px;
+		padding:10px 0;
+		border-top:1px solid #666;
+		width: 1000px;
+	}
+	#foot span{
+		margin: 10px 5px;
+	}
+	#language{
+		float: right;
+	}
+	#foot a{
+		text-decoration:none;
+		color: #888;
+	}
+        

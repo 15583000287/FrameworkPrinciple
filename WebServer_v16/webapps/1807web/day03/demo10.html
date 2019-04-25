@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Test</title>
+<style type="text/css">
+	#div1{
+		width:300px;
+		height:300px;
+		background-image: url("../day01/c.jpg");
+		background-size: 300px 300px;
+	}
+	#div2{
+		width:500px;
+		height:500px;
+		background-image: url("../day01/c.jpg");
+		background-color: red;
+		background-size: 100px 100px;
+		background-repeat: no-repeat;
+		background-position: 50% 50%;
+	}
+	#div3{
+		width:200px;
+		height:200px;
+		background-image: url("../day01/c.jpg");
+		background-color: green;
+		background-size: 100px 100px;
+		background-repeat: no-repeat;
+		background-position: 0% 100%;
+	}
+	span{
+		background-color: pink;	
+		/* 行内元素的宽高是包裹内容的 不能直接修改 下面无任何效果 */
+		width:200px;
+		height:200px;
+	}
+</style>
+</head>
+<body>
+	<span>我受内容影响，设置不了宽高</span>
+	<div id="div1">div1</div>
+	<div id="div2">div2</div>
+	<div id="div3">div3</div>
+</body>
+</html>

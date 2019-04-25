@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo5</title>
+<script type="text/javascript">
+	function add(){
+		var name = i1.value;
+		var li = document.createElement("li");
+		li.innerText= name;
+		u1.appendChild(li);
+	}
+	function insert(){
+		var name = i1.value;
+		var li = document.createElement("li");
+		li.innerText= name;
+		u1.insertBefore(li, sh);
+		
+	}
+	function remove(){
+		u1.removeChild(sh);
+	}
+</script>
+</head>
+<body>
+	<input type="text" placeholder="请输入城市名称" id="i1">
+	<input type="button" value="添加" onclick="add()">
+	<input type="button" value="插入" onclick="insert()">
+	<input type="button" value="删除" onclick="remove()">
+	
+	<ul id="u1">
+		<li>北京</li>
+		<li id="sh">上海</li>
+		<li>广州</li>
+	</ul>
+</body>
+</html>

@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo1自动校验</title>
+<style type="text/css">
+	.ok{
+		color: green;
+	}
+	.err{
+		color: red;
+	}
+</style>
+<script type="text/javascript">
+	function checkfn1(){
+		var i1 = document.getElementById("i1");
+		var reg = /^\w{6,10}$/;
+		if(reg.test(i1.value)){
+			s1.innerText="用户名格式正确";
+			s1.className="ok";
+			return true;
+		}else{
+			s1.innerText="6-10位字母，数字，下划线";
+			s1.className="err";
+			return false;
+		}
+	}
+	function checkfn2(){
+		var i2 = document.getElementById("i2");
+		var reg = /^\w{6,10}$/;
+		if(reg.test(i2.value)){
+			s2.innerText="密码格式正确"
+			s2.className="ok";
+			return true;
+		}else{
+			s1.innerText="6-10位字母，数字，下划线";
+			s2.className="err";
+			return false;
+		}
+	}
+</script>
+</head>
+<body>
+	<form action="http://www.baidu.com" onsubmit="return checkfn1()+checkfn2()==2;">
+		账号：<input type="text" placeholder="username" id="i1" onblur="checkfn1()">
+		<span id="s1">6-10位字母，数字，下划线</span><br>
+		密码：<input type="text" placeholder="password"  id="i2" onblur="checkfn2()">
+		<span id="s2">6-10位字母，数字，下划线</span><br>
+		<input type="submit" value="登陆">
+	</form>
+</body>
+</html>

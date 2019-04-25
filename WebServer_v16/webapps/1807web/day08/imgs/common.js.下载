@@ -1,0 +1,1206 @@
+var urls = {
+    'bsuv': '/renegade/',
+    'csuv': '/compass/',
+    'jk': '/wrangler/',
+    'k4': '/newcherokee/',
+    'k8': '/grand_commander/',
+    'wk': '/grand_cherokee/',
+    'jl': '/wrangler/jl/',
+    'k85': '/commander/',
+    'cp': '/comcampaign/',
+};
+// var jrfa = 'jrfa'
+var favList = ['bsuv','csuv','jk','k4','k8','wk','jl','k85']; // 这里只加车型
+
+var ua = navigator.userAgent.toLowerCase();
+if(ua.indexOf('iphone')>-1 || ua.indexOf('ipod')>-1 || ua.indexOf('android')>-1){
+    // ios，android
+    location.href = '/mobile/index.html';
+}
+var targets = '';
+$(function(){
+    /**********千人千面 试乘试驾需要链接到车型页，并弹出预约试驾弹框 start*************/
+    var ohref = window.location.href;
+    if(ohref.indexOf('source=scsj') > -1){
+        if($('#masker .form').length){
+            $('#masker').addClass('form');
+        }
+    }
+    /**********千人千面 试乘试驾需要链接到车型页，并弹出预约试驾弹框 end*************/
+    //判断浏览器是否支持360赏车
+    var canvas = document.createElement( 'canvas' );
+    var isIe =  !! ( window.WebGLRenderingContext && ( canvas.getContext( 'webgl' ) || canvas.getContext( 'experimental-webgl' ) ) );
+
+    // header
+    $.get('/common/header.html',function(res){
+        $('header').html(res);
+
+        var favTimer,
+            carTimer;
+
+        // 收藏
+        $('header .fav > a').on('click',function(){
+            if(checkInFav()){
+                $('header .fav').addClass('hover');
+            }else{
+                addFav();
+            }
+        });
+        $('header .fav').on('mouseleave',function(){
+            var that = this;
+            favTimer = setTimeout(function(){
+                $(that).removeClass('hover');
+            },200);
+        }).on('mouseenter',function(){
+            clearTimeout(favTimer);
+        });
+
+        // 车型
+        $('header .nav-cars').on('mouseenter',function(){
+            clearTimeout(carTimer);
+            $(this).addClass('hover').children('.glyphicon').addClass('glyphicon-menu-up');
+        }).on('mouseleave',function(){
+            var that = this;
+            carTimer = setTimeout(function(){
+                $(that).removeClass('hover').children('.glyphicon').removeClass('glyphicon-menu-up');
+            },200);
+        });
+        // 点击跳转
+        $('.nav-cars-list > li').on('click',function(){
+            var carname = this.className;
+            var index = $(this).index();
+            // jice.track('cx_jeepsc', {content: '/*车型名称*/'});
+            //判断首页没有二级导航
+            if(stm_clicki){
+                var _stm = $(this).data('stm');
+                stm_clicki('send', 'event', _stm, '点击', '');
+            }
+            if(_jcq){
+                var admaster = $(this).data('admaster');
+                _jcq.push(['_track', admaster]);
+            }
+            // 敬请期待
+            if(carname == 'waiting') return;
+            setTimeout(function(){
+                location.href = urls[carname];
+            },200)
+        }).on('mouseenter',function(){
+            var carname = this.className;
+            if(carname == 'waiting') return;
+            $('.nav-cars-news').attr('data-news',carname);
+            // console.log(carname);
+        });
+        $('.nav-cars-news').on('click',function(){
+            var carname = $(this).data('news');
+            location.href = urls[carname];
+        })
+
+        // 二级导航
+        ;(function(){
+            if($('[data-subnav]').length == 0){
+                $('.subnav').hide();
+                return;
+            }
+            targets = getTargets();
+            initSubnav(targets);
+
+            checkSubnav($(window).scrollTop());
+
+            $('.subnav .mainContent a:not([data-type])').on('click',function(){
+                var index = $(this).index();
+                $('html,body').animate({scrollTop: targets[index].offset+2},500);
+                // console.log(targets[index].admaster);
+                if(stm_clicki){
+                    stm_clicki('send', 'event', targets[index].stm, '点击', '');
+                }
+                if(_jcq){
+                    _jcq.push(['_track', targets[index].admaster]);
+                }
+            });
+            $('.subnav .mainContent .arrow-top').on('click',function(){
+                $('html,body').animate({scrollTop: 0});
+                if(_jcq){
+                    if(location.href.indexOf('jeeplife') > -1){
+                        _jcq.push(['_track', 'life_up']);
+                    }else if(location.href.indexOf('financial') > -1){
+                        _jcq.push(['_track', 'gczc_up']);
+                    }else if(location.href.indexOf('service_parts') > -1){
+                        _jcq.push(['_track', 'qjj_up']);
+                    }else{
+                        _jcq.push(['_track', pageName + '_fhdb']);
+                        stm_clicki('send', 'event', pageName + '_fhdb', '点击', '');
+                    }
+                }
+            });
+
+            $(window).on('scroll',function(e){
+                var st = $(window).scrollTop();
+                if(st > 70){
+                    $('header').addClass('turned');
+                }else{
+                    $('header').removeClass('turned');
+                }
+
+                checkSubnav(st);
+            });
+
+            // 定时更新位置
+            setInterval(function(){
+                targets = getTargets();
+            },2000);
+
+
+            function getTargets(){
+                var tmp = [];
+                $('[data-subnav]').each(function(){
+                    var name = $(this).data('subnav'),
+                        admaster = $(this).data('admaster'),
+                        stm = $(this).data('stm'),
+                        offset = $(this).offset().top - 70,
+                        tmpData = {};
+                    tmpData.name = name,
+                        tmpData.admaster = admaster,
+                        tmpData.offset = offset;
+                    tmp.push(tmpData);
+                });
+
+                return tmp;
+            }
+            function initSubnav(data){
+                var html = '';
+                $.each(data,function(i,n){
+                    ////判断浏览器是否支持360赏车
+                    if(n.name == '360赏车'){
+                        if(!isIe){
+                            html += '<a href="javascript:;">外观颜色</a>'
+                        }else{
+                            html += '<a href="javascript:;">'+n.name+'</a>'
+                        }
+                    }else{
+                        html += '<a href="javascript:;">'+n.name+'</a>'
+                    }
+
+                });
+                // if(window.pageName && window.pageName == 'jk'){
+                //     html += '<a data-type="link" href="/wrangler/jl/" onclick="stm_clicki(\'send\', \'event\', \'K4导航-全新一代牧马人\', \'点击\', \'\');_jcq.push([\'_track\', \'jkdh_qxydmmr\']);">全新一代牧马人</a>'
+                // }else if(window.pageName && window.pageName == 'jl'){
+                //     html += '<a data-type="link" href="/wrangler/" onclick="stm_clicki(\'send\', \'event\', \'jldh_jkmmr\', \'点击\', \'\');_jcq.push([\'_track\', \'jldh_jkmmr\']);">进口Jeep牧马人</a>'
+                // }
+                if(window.pageName && window.pageName == 'k85'){
+                    html += '<a href="javascript:;" class="carLink" id="car_k8Nav" data-type="link">全新Jeep大指挥官</a><a id="jrfa" data-type="link" href="javascript:;" onclick="stm_clicki(\'send\', \'event\', \'K8五座车型页导航-金融专案\', \'点击\', \'\');_jcq.push([\'_track\', \'k5dhjrza\']);">金融政策</a>'
+                }
+                if(window.pageName && window.pageName == 'k8'){
+                    html += '<a href="javascript:;" class="carLink" id="car_k85Nav" data-type="link">全新Jeep指挥官</a>'
+                }
+                if(window.pageName && window.pageName == 'jl'){
+                    html += '<a href="javascript:;" class="carLink" id="car_jkNav" data-type="link">进口Jeep牧马人</a>'
+                }
+
+                // 预约试驾
+                if(window.pageName && favList.indexOf(window.pageName)>-1){
+                    html += '<a data-type="link" class="testdriveBtn" href="javascript:;">预约试驾</a>';
+                }
+                if(window.pageName && window.pageName == 'k8'){
+                    html += '<a id="hqyh" data-type="link" href="javascript:;" onclick="stm_clicki(\'send\', \'event\', \'k8dhhqyh\', \'点击\', \'\');_jcq.push([\'_track\', \'k8dhhqyh\']);">获取优惠</a>'
+                }
+                html += '<a data-type="link" class="arrow-top" href="javascript:;"></a>'
+                $('.subnav .mainContent').html(html);
+                $('.subnav .mainContent > a:eq(0)').addClass('on');
+                $('#car_k8Nav').click(function () {
+                    _jcq.push(['_track', 'K8dh_k5']);
+                    setTimeout(function () {
+                        window.location.href = '../grand_commander/';
+                    },100)
+                })
+                $('#car_k85Nav').click(function () {
+                    _jcq.push(['_track', 'K5dh_k8']);
+                    setTimeout(function () {
+                        window.location.href = '../commander/';
+                    },100)
+                })
+                $('#car_jkNav').click(function () {
+                    _jcq.push(['_track', 'jldh_jk']);
+                    setTimeout(function () {
+                        window.location.href = '../../wrangler';
+                    },100)
+                })
+                // 预约试驾 点击事件
+                $('.subnav .testdriveBtn').click(function(){
+                    $('#masker').get(0).className = 'form';
+                    var value = pageName == 'k85' ? 'k5' : pageName;
+                    value += 'dhyysj';
+                    if(stm_clicki){
+                        stm_clicki('send', 'event', value, '点击', '');
+                    }
+                    if(_jcq){
+                        _jcq.push(['_track', value]);
+                    }
+                });
+                $('#hqyh').on('click',function () {
+                    setTimeout(function () {
+                        window.open('http://i.bsitt.cn/h0vZsQ');
+                    },300)
+                })
+
+            }
+            function checkSubnav(st){
+                for(var i = 0;i<targets.length;i++){
+                    if(i < targets.length -1){
+                        if(st > targets[i].offset && st < targets[i+1].offset){
+                            selectSubnav(i);
+                        }else{
+                            // selectSubnav(-1);
+                        }
+                    }else{
+                        if(st > targets[i].offset){
+                            selectSubnav(i);
+                        }
+                    }
+
+                }
+            }
+            function selectSubnav(i){
+                // if(i == -1){
+                //     $('.subnav .mainContent a').removeClass('on');
+                //     return;
+                // }
+                $('.subnav .mainContent a:eq('+ i +')').addClass('on').siblings().removeClass('on');
+            }
+        })();
+
+
+
+        // 加载完成
+        initCars();
+
+        // 测试 加收藏
+        // updateStorage(['k8','wk','k4','jk','csuv','bsuv'])
+    });
+
+    // 收藏
+    //  跳转
+    $('header').on('click','.fav-car',function(){
+        var carname = $(this).parent().data('carname');
+        location.href = urls[carname];
+    });
+    //  删除
+    $('header').on('click','.fav-close',function(){
+        var carname = $(this).parent().data('carname'),
+            cars = getCars();
+        cars.splice(cars.indexOf(carname),1);
+        updateStorage(cars);
+    });
+    //  选中
+    $('header').on('click','.fav-check',function(){
+        $(this).toggleClass('checked');
+        // 超过4个提示
+        if($('.fav-check.checked').length>4){
+            $(this).removeClass('checked');
+            alert('最多只能选4个');
+            return;
+        }
+    });
+
+    //每个车型页面 点击Jeep商城后的浮窗页面 立即参与按钮事件
+    $('#masker').on('click','#cars_ljcy',function(){
+        var ohref = $(this).attr('ohref');
+        setTimeout(function () {
+            window.open(ohref);
+        },300)
+    });
+    //  开始对比
+    var compareData = {
+        'bsuv': 'renegade:1_8_dnb',
+        'csuv': 'compass:200_jingxb',
+        'jk': 'wrangler:2_8_sahara_4_sx',
+        'jl': 'wrangler_jl:2_0_sahara_2',
+        'k4': 'newcherokee:2_0_lxb',
+        'k8': 'grand_commander:2T_lqcxb',
+        'k85': 'commander:2T_lqlxb',
+        'wk': 'grand_cherokee:3_0_ssdhb',
+    };
+    $('header').on('click','.fav-btn',function(){
+        var length = $('.fav-check.checked').length,
+            url = '/financial/buyCar.html',
+            tmp = [];
+        if(length>4){
+            alert('最多只能选4个');
+            return;
+        }
+        $('.fav-check.checked').each(function(i,n){
+            var carname = $(this).parent().data('carname');
+            tmp.push('car' + (i+1) + '=' + compareData[carname]);
+        });
+        url += '?';
+        url += tmp.join('&');
+        url += '#Comparing';
+        location.href = url;
+    });
+
+
+    // footer
+    $.get('/common/footer.html',function(res){
+        $('footer').html(res);
+    });
+
+})
+
+
+// 收藏相关
+function checkInFav(){
+    if(window.pageName && favList.indexOf(window.pageName) > -1){
+        // window.pageName 是 车型
+        if(window.pageName == 'jl') return 1; // 排除jl
+        if(window.pageName == 'k85') return 1; // 排除k85
+        var cars = getCars();
+        // console.log(cars);
+        if(cars.indexOf(window.pageName) > -1){
+            return 1;
+        }else{
+            return 0;
+        }
+    }else{
+        return 1;
+    }
+}
+function addFav(){
+    var cars = getCars();
+    if(window.pageName && favList.indexOf(window.pageName) > -1 && cars.indexOf(window.pageName) == -1){
+
+        // if(window.pageName == 'k85') return;
+        cars.push(window.pageName);
+        updateStorage(cars);
+    }
+}
+function renderCars(){
+    var cars = getCars(),
+        html = '';
+    $.each(cars,function(i,n){
+        html += '<div class="fav-item" data-carname="' + n + '">';
+        html += '    <i class="fav-car"></i>';
+        html += '    <i class="fav-close"></i>';
+        html += '    <i class="fav-check"></i>';
+        html += '    <i class="fav-bg"></i>';
+        html += '</div>';
+    });
+    $('.fav-cars').html(html);
+}
+function renderNumber(){
+    var cars = getCars();
+    $('.fav-count').html(cars.length);
+}
+function getCars(){
+    return localStorage.getItem('jeepfav') ? localStorage.getItem('jeepfav').split(',') : [];
+}
+function initCars(){
+    renderNumber();
+    renderCars();
+}
+function updateStorage(data){
+    localStorage.setItem('jeepfav',data);
+    initCars();
+}
+
+
+
+// 预约试驾
+$(function(){
+    carName = 'grand_commander';
+    var buyModelCodes = {
+        'grand_commander': '0221',
+        'commander': '0221',
+        'grand_cherokee': '0205',
+        'newcherokee': '0214',
+        'wrangler': '0206',
+        'renegade': '0216',
+        'compass': '0219',
+        'jl': '0222'
+    };
+    var carNameCN = {
+        'grand_commander': '全新Jeep大指挥官',
+        'commander': '全新Jeep指挥官',
+        'grand_cherokee': '全新Jeep大切诺基',
+        'newcherokee': '全新Jeep自由光',
+        'wrangler': '进口Jeep牧马人',
+        'renegade': '全新Jeep自由侠',
+        'compass': '全新Jeep指南者',
+        'jl': '全新一代Jeep牧马人'
+    };
+    var _isSub = false;
+
+
+
+    // 预约试驾
+    $('.testDriveMain').on('click','.submit',function(){
+        if($(this).parents('#testDriveMain').length){
+            //购车支持 - 预约试驾
+            var position = 'gczc';
+            var cname = '购车支持';
+            var adname = 'gczc_lzcx';
+            function getEmpty(){
+                var empty = [];
+                var _name = $.trim($('#name').val());
+                var _phone = $('#phone').val();
+                var _sex = $('#name + select option:selected').text();
+                var _province = $('#province option:selected').val();
+                var _city = $('#city option:selected').val();
+                var _dealercode = $('#dealer option:selected').val();
+                var _agree = $('.termsBar input:checked').length;
+                if(!_name){
+                    empty.push('name')
+                }
+                if(!_phone){
+                    empty.push('phone')
+                }
+                if( _sex == '-1' ){
+                    empty.push('sex')
+                }
+                if( _province == '' ){
+                    empty.push('province')
+                }
+                if( _city == '' ){
+                    empty.push('city')
+                }
+                if( _dealercode == '' ){
+                    empty.push('dealers')
+                }
+                if( _agree == 0 ){
+                    empty.push('agree')
+                }
+                return empty.length ? empty.join(','): 'empty';
+            }
+            var _name = $('#name').val();
+            var _sex = $('#name + select option:selected').text();
+            var _phone = $('#phone').val();
+            var _province = $('#province option:selected').val();
+            var _provincecode = formCode.province[_province];
+            var _city = $('#city option:selected').val();
+            var _citycode = formCode.city[_city];
+            var _dealercode = $('#dealer option:selected').val();
+            var _buymodel = buyModelCodes[carName];
+            // var _agree = $('#agree:checked').length;
+            var _agree = $('.termsBar input:checked').length;
+
+            var _lastchar = _province.substr(_province.length - 1);
+            if (_lastchar == '省' || _lastchar == '市') {
+                _province = _province.substr(0, _province.length - 1);
+            }
+
+            var _testChannel = 'https://test.jeep.com.cn/financial/buyCar.html'; //测试站点表单所在页面地址
+            var _proChannel = 'https://www.jeep.com.cn/financial/buyCar.html';   //正式站点表单所在页面地址
+            //彪扬
+            var _testUrl = 'https://l2r-api.boldseas.com/api/v1/submit?l2r_api_token=6fb9da03479644fcb448fe179c48d13b'; //测试接口地址
+            var _proUrl = 'https://l2r-api.boldseas.com/api/v1/submit?l2r_api_token=8650b5cb46c84f6287e8d13c48553c07';  //正式接口地址
+        }else{
+            // 预约试驾页面
+            var position = 'sy';
+            var cname = '预约试驾';
+            var adname = 'sy_yysjlzcx';
+            function getEmpty(){
+                var empty = [];
+                var _name = $.trim($('.nameInfo input').val());
+                var _phone = $('.nameInfo_bar .tel').val();
+                var _sex = $('.nameInfo select option:selected').text();
+                var _car = $('#car').html();
+                var _province = $('#province option:selected').val();
+                var _city = $('#city option:selected').val();
+                var _dealercode = $('.Dealer').attr('data-code');
+                var _agree = $('.terms_Bar input:checked').length;
+                if(!_name){
+                    empty.push('name')
+                }
+                if(!_phone){
+                    empty.push('phone')
+                }
+                if( _sex == '-1' ){
+                    empty.push('sex')
+                }
+                if( _province == '' ){
+                    empty.push('province')
+                }
+                if( _car == '请选择试驾的车' ){
+                    empty.push('select')
+                }
+                if( _city == '' ){
+                    empty.push('city')
+                }
+                if( !_dealercode ){
+                    empty.push('dealers')
+                }
+                if( _agree == 0 ){
+                    empty.push('agree')
+                }
+                return empty.length ? empty.join(','): 'empty';
+            }
+            var _name = $('.nameInfo input').val();
+            var _sex = $('.nameInfo select option:selected').text();
+            var _phone = $('.nameInfo_bar .tel').val();
+            var _car = $('#car').html();
+            var _province = $('#province option:selected').val();
+            var _provincecode = formCode.province[_province];
+            var _city = $('#city option:selected').val();
+            var _citycode = formCode.city[_city];
+            var _dealercode = $('.Dealer').attr('data-code');
+            var _buymodel = buyModelCodes[carName];
+            // var _agree = $('#agree:checked').length;
+            var _agree = $('.terms_Bar input:checked').length;
+
+            var _lastchar = _province.substr(_province.length - 1);
+            if (_lastchar == '省' || _lastchar == '市') {
+                _province = _province.substr(0, _province.length - 1);
+            }
+
+            var _testChannel = 'https://test.jeep.com.cn/financial/testDrive.html'; //测试站点表单所在页面地址
+            var _proChannel = 'https://www.jeep.com.cn/financial/testDrive.html';   //正式站点表单所在页面地址
+            //彪扬
+            var _testUrl = 'https://l2r-api.boldseas.com/api/v1/submit?l2r_api_token=6fb9da03479644fcb448fe179c48d13b'; //测试接口地址
+            var _proUrl = 'https://l2r-api.boldseas.com/api/v1/submit?l2r_api_token=c8d873423e1b45b6ac85d4a7ecf37b0a';  //正式接口地址
+        }
+
+
+        var empty = getEmpty();
+        _jcq.push(["_tracksubmit", position, empty]);
+        if (_name == '' || _name== '姓名：') {
+            alert('请输入姓名！');
+            return;
+        }
+        if (!(/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/.test(_phone)) || _phone.length != 11) {
+            alert('请正确输入手机号码!');
+            return;
+        }
+        if(position == 'sy' && _car == '请选择试驾的车') {
+            alert('请选择试驾的车');
+            return;
+        }
+        if (_province == '') {
+            alert('请选择所在省/直辖市！');
+            return;
+        }
+        if (_city == '') {
+            alert('请选所在市/区！');
+            return;
+        }
+        if (_dealercode == '') {
+            alert('请选择经销商！');
+            return;
+        }
+        if(!_agree){
+            alert('请勾选同意Jeep商城的《隐私声明》条约与条件');
+            return;
+        }
+
+        _isSub = true;
+        var _globalId = getGlobalID();
+        // 秒针global id监测代码
+        if (window.stm_clicki) {
+            stm_clicki('send', 'event', {
+                customActionId: 1,
+                customActionLabel1: carNameCN[carName],
+                customActionLabel2: _province,
+                customActionLabel3: _city,
+                customActionLabel4: _dealercode,
+                customActionLabel5: _globalId,
+                customActionLabel6: cname + '-Jeep中国官方网站-PC',
+                customActionValue1: '1'
+            });
+            stm_clicki('send', 'event', cname + '提交信息按钮-PC', '点击', '确认提交');
+        }
+
+
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            // "url": _testUrl, //发布正式地址，需要修改正式接口地址
+            "url": _proUrl, //发布正式地址，需要修改正式接口地址
+            "method": "POST",
+            "headers": {
+                "Content-Type": "application/json",
+                "Cache-Control": "no-cache",
+            },
+            "processData": false,
+            "data": JSON.stringify({
+                "name": _name,
+                "gender": _sex,
+                "phone": _phone,
+                "dealerCode": _dealercode,
+                "provinceCode": _provincecode,
+                "cityCode": _citycode,
+                "buyModelCode": _buymodel,
+                // "url": _testChannel, //发布正式地址，需要修改正式站点地址
+                "url": _proChannel, //发布正式地址，需要修改正式站点地址
+                "globalId": _globalId
+            })
+        };
+        $.ajax(settings).done(function (response) {
+
+            if (response.code == 1 || response.code == 2) {
+                _isSub = false;
+                _jcq.push(["_formsucceed", position])   //提交成功
+                _jcq.push(['_track', 'queding',{content: _globalId ,biaodankey: position }]);
+                _jcq.push(['_track', adname, {content: carNameCN[carName], globalid: _globalId }]);
+                alert("提交申请成功！");
+            } else {
+                _isSub = false;
+                alert("提交申请成功！");//测试完毕之后改回失败
+            }
+        });
+    });
+
+    function getGlobalID() {
+        return "j" + new Date().getTime() + "-" + Math.floor(Math.random() * 1000);
+    }
+});
+var formCode = {
+    'province': {
+        '北京': '0101',
+        '浙江': '0112',
+        '湖南': '0119',
+        '广东': '0120',
+        '天津': '0103',
+        '黑龙江': '0110',
+        '辽宁': '0108',
+        '上海': '0102',
+        '四川': '0123',
+        '湖北': '0118',
+        '吉林': '0109',
+        '河南': '0117',
+        '山西': '0106',
+        '云南': '0125',
+        '陕西': '0127',
+        '重庆': '0104',
+        '江苏': '0111',
+        '内蒙古': '0107',
+        '河北': '0105',
+        '福建': '0114',
+        '新疆': '0131',
+        '山东': '0116',
+        '安徽': '0113',
+        '广西': '0121',
+        '西藏': '0126',
+        '海南': '0122',
+        '江西': '0115',
+        '宁夏': '0129',
+        '贵州': '0124',
+        '甘肃': '0128',
+        '青海': '0130'
+    },
+    'city': {
+        '东城': '010101',
+        '西城': '010102',
+        '朝阳': '010105',
+        '海淀': '010108',
+        '门头沟': '010109',
+        '通州': '010111',
+        '顺义': '010112',
+        '大兴': '010114',
+        '平谷': '010115',
+        '密云': '010117',
+        '石景山': '010107',
+        '房山': '010110',
+        '延庆': '010118',
+        '杭州': '011201',
+        '长沙': '011901',
+        '益阳': '011908',
+        '永州': '011912',
+        '张家界': '011914',
+        '广州': '012001',
+        '韶关': '012008',
+        '清远': '012018',
+        '云浮': '012021',
+        '丰台': '010106',
+        '东丽': '010302',
+        '津南': '010306',
+        '南开': '010307',
+        '宁河': '010315',
+        '静海': '010316',
+        '昌平': '010113',
+        '怀柔': '010116',
+        '哈尔滨': '011001',
+        '齐齐哈尔': '011002',
+        '牡丹江': '011003',
+        '佳木斯': '011004',
+        '绥化': '011006',
+        '鹤岗': '011007',
+        '鸡西': '011008',
+        '黑河': '011009',
+        '双鸭山': '011010',
+        '伊春': '011011',
+        '七台河': '011012',
+        '大兴安岭': '011013',
+        '沈阳': '010801',
+        '大连': '010802',
+        '丹东': '010806',
+        '南汇': '010217',
+        '黄浦': '010201',
+        '虹口': '010208',
+        '杨浦': '010209',
+        '浦东': '010213',
+        '卢湾': '010202',
+        '长宁': '010204',
+        '静安': '010205',
+        '普陀': '010206',
+        '宝山': '010211',
+        '嘉定': '010212',
+        '青浦': '010216',
+        '崇明': '010219',
+        '成都': '012301',
+        '自贡': '012304',
+        '内江': '012307',
+        '广安': '012311',
+        '达川': '012312',
+        '阿坝': '012321',
+        '攀枝花': '012305',
+        '雅安': '012313',
+        '眉山': '012314',
+        '甘孜': '012315',
+        '凉山': '012316',
+        '资阳': '012319',
+        '深圳': '012002',
+        '武汉': '011801',
+        '潜江': '011810',
+        '天门': '011811',
+        '孝感': '011815',
+        '随州': '011813',
+        '咸宁': '011814',
+        '长春': '010901',
+        '吉林': '010902',
+        '四平': '010903',
+        '辽源': '010904',
+        '通化': '010905',
+        '白山': '010906',
+        '白城': '010908',
+        '延边': '010909',
+        '徐汇': '010203',
+        '闵行': '010210',
+        '金山': '010214',
+        '松江': '010215',
+        '奉贤': '010218',
+        '郑州': '011701',
+        '焦作': '011708',
+        '漯河': '011711',
+        '济源': '011718',
+        '太原': '010601',
+        '阳泉': '010603',
+        '晋城': '010605',
+        '朔州': '010606',
+        '吕梁': '010607',
+        '晋中': '010609',
+        '昆明': '012501',
+        '大理': '012502',
+        '思茅': '012509',
+        '丽江': '012513',
+        '怒江': '012514',
+        '迪庆': '012515',
+        '临沧': '012516',
+        '普洱': '012517',
+        '西安': '012701',
+        '宝鸡': '012702',
+        '咸阳': '012703',
+        '铜川': '012704',
+        '渭南': '012705',
+        '商洛': '012710',
+        '渝中': '010403',
+        '九龙坡': '010407',
+        '南岸': '010408',
+        '万盛': '010410',
+        '巴南': '010413',
+        '黔江': '010414',
+        '彭水': '010436',
+        '江津': '010437',
+        '永川': '010439',
+        '南川': '010440',
+        '綦江': '010416',
+        '潼南': '010417',
+        '武隆': '010426',
+        '石柱': '010433',
+        '秀山': '010434',
+        '酉阳': '010435',
+        '苏州': '011103',
+        '呼和浩特': '010701',
+        '乌海': '010703',
+        '阿拉善盟': '010706',
+        '乌兰察布盟': '010709',
+        '伊克昭盟': '010712',
+        '东胜': '010715',
+        '石家庄': '010501',
+        '衡水': '010511',
+        '厦门': '011402',
+        '龙岩': '011408',
+        '无锡': '011110',
+        '南京': '011101',
+        '乌鲁木齐': '013101',
+        '石河子': '013102',
+        '克拉玛依': '013103',
+        '伊犁': '013104',
+        '博尔塔拉': '013108',
+        '吐鲁番': '013109',
+        '五家渠': '013118',
+        '哈密': '013110',
+        '阿克苏': '013113',
+        '塔城': '013114',
+        '阿勒泰': '013115',
+        '阿拉尔': '013116',
+        '米泉': '013117',
+        '台州': '011210',
+        '珠海': '012003',
+        '阳江': '012017',
+        '青岛': '011602',
+        '唐山': '010508',
+        '济南': '011601',
+        '德州': '011614',
+        '聊城': '011615',
+        '合肥': '011301',
+        '池州': '011311',
+        '淮南': '011312',
+        '巢湖': '011313',
+        '淄博': '011603',
+        '烟台': '011606',
+        '南宁': '012101',
+        '梧州': '012104',
+        '北海': '012105',
+        '防城港': '012106',
+        '钦州': '012107',
+        '贵港': '012108',
+        '玉林': '012109',
+        '贺州': '012110',
+        '河池': '012112',
+        '来宾': '012113',
+        '崇左': '012114',
+        '宁波': '011202',
+        '舟山': '011209',
+        '余慈': '011212',
+        '承德': '010506',
+        '秦皇岛': '010509',
+        '和平': '010301',
+        '河东': '010303',
+        '河西': '010305',
+        '河北': '010309',
+        '红挢': '010311',
+        '宝坻': '010317',
+        '拉萨': '012601',
+        '日喀则': '012602',
+        '山南': '012603',
+        '林芝': '012604',
+        '昌都': '012605',
+        '阿里': '012606',
+        '那曲': '012607',
+        '南通': '011104',
+        '泰安': '011609',
+        '南充': '012309',
+        '遂宁': '012318',
+        '海口': '012201',
+        '三亚': '012202',
+        '琼北': '012203',
+        '琼南': '012204',
+        '昌江': '012205',
+        '东方': '012206',
+        '儋州': '012207',
+        '定安': '012208',
+        '陵水': '012209',
+        '文昌': '012210',
+        '白沙': '012211',
+        '绵阳': '012302',
+        '福州': '011401',
+        '南平': '011407',
+        '大庆': '011005',
+        '金华': '011207',
+        '衢州': '011208',
+        '南昌': '011501',
+        '景德镇': '011502',
+        '保定': '010504',
+        '泉州': '011405',
+        '东莞': '012005',
+        '大同': '010602',
+        '涪陵': '010402',
+        '大渡口': '010404',
+        '江北': '010405',
+        '沙坪坝': '010406',
+        '北碚': '010409',
+        '合川': '010438',
+        '双挢': '010411',
+        '渝北': '010412',
+        '长寿': '010415',
+        '铜梁': '010418',
+        '大足': '010419',
+        '鞍山': '010803',
+        '鄂尔多斯': '010713',
+        '洛阳': '011703',
+        '安阳': '011705',
+        '襄阳': '011804',
+        '温州': '011203',
+        '丽水': '011211',
+        '乐清': '011213',
+        '松原': '010907',
+        '佛山': '012007',
+        '肇庆': '012012',
+        '银川': '012901',
+        '石嘴山': '012902',
+        '吴忠': '012903',
+        '固原': '012904',
+        '中卫': '012905',
+        '昌吉': '013106',
+        '湖州': '011205',
+        '三明': '011404',
+        '张家口': '010505',
+        '东营': '011605',
+        '潍坊': '011607',
+        '南阳': '011713',
+        '湘潭': '011904',
+        '万州': '010401',
+        '梁平': '010422',
+        '城口': '010423',
+        '垫江': '010425',
+        '忠县': '010427',
+        '开县': '010428',
+        '云阳': '010429',
+        '奉节': '010430',
+        '巫山': '010431',
+        '巫溪': '010432',
+        '江门': '012009',
+        '茂名': '012011',
+        '株洲': '011903',
+        '红河': '012507',
+        '文山': '012508',
+        '威海': '011610',
+        '黄山': '011308',
+        '滁州': '011309',
+        '宿州': '011310',
+        '宣城': '011316',
+        '莱芜': '011612',
+        '开封': '011702',
+        '盐城': '011106',
+        '连云港': '011108',
+        '百色': '012111',
+        '巴音郭勒': '013105',
+        '克孜勒苏柯尔克孜': '013107',
+        '和田': '013112',
+        '绍兴': '011206',
+        '丰都': '010424',
+        '荣昌': '010420',
+        '抚顺': '010804',
+        '本溪': '010805',
+        '阜新': '010809',
+        '辽阳': '010810',
+        '铁岭': '010812',
+        '长治': '010604',
+        '岳阳': '011906',
+        '锦州': '010807',
+        '广元': '012306',
+        '巴中': '012320',
+        '柳州': '012102',
+        '汕头': '012004',
+        '惠州': '012013',
+        '梅州': '012014',
+        '汕尾': '012015',
+        '河源': '012016',
+        '潮州': '012019',
+        '揭阳': '012020',
+        '济宁': '011608',
+        '滨州': '011616',
+        '嘉兴': '011204',
+        '营口': '010808',
+        '廊坊': '010507',
+        '邢台': '010503',
+        '榆林': '012707',
+        '沧州': '010510',
+        '赤峰': '010704',
+        '呼伦贝尔盟': '010705',
+        '哲里木盟': '010707',
+        '兴安盟': '010708',
+        '锡林郭勒盟': '010710',
+        '通辽': '010714',
+        '仙桃': '011812',
+        '鄂州': '011816',
+        '曲靖': '012503',
+        '昭通': '012505',
+        '郴州': '011911',
+        '乐山': '012308',
+        '桂林': '012103',
+        '昆山': '011115',
+        '太仓': '011117',
+        '十堰': '011808',
+        '常州': '011109',
+        '驻马店': '011717',
+        '宁德': '011409',
+        '邯郸': '010502',
+        '娄底': '011909',
+        '包头': '010702',
+        '巴彦淖尔盟': '010711',
+        '运城': '010611',
+        '闸北': '010207',
+        '西青': '010304',
+        '北辰': '010308',
+        '武清': '010310',
+        '九江': '011503',
+        '鹰潭': '011504',
+        '萍乡': '011505',
+        '新余': '011506',
+        '吉安': '011508',
+        '宜春': '011509',
+        '抚州': '011510',
+        '上饶': '011511',
+        '菏泽': '011617',
+        '淮北': '011305',
+        '阜阳': '011314',
+        '亳州': '011317',
+        '遵义': '012403',
+        '镇江': '011102',
+        '平顶山': '011704',
+        '新乡': '011707',
+        '三门峡': '011712',
+        '酒泉': '012806',
+        '信阳': '011715',
+        '盘锦': '010811',
+        '扬州': '011105',
+        '泰州': '011112',
+        '徐州': '011107',
+        '宿迁': '011111',
+        '淮安': '011113',
+        '邵阳': '011907',
+        '商丘': '011714',
+        '宜宾': '012310',
+        '忻州': '010608',
+        '荆门': '011806',
+        '常德': '011902',
+        '铜陵': '011306',
+        '常熟': '011114',
+        '泸州': '012317',
+        '德阳': '012303',
+        '西宁': '013001',
+        '海东': '013002',
+        '海南': '013003',
+        '海北': '013004',
+        '黄南': '013005',
+        '玉树': '013006',
+        '果洛': '013007',
+        '海西': '013008',
+        '汉中': '012708',
+        '兰州': '012801',
+        '天水': '012805',
+        '许昌': '011710',
+        '周口': '011716',
+        '濮阳': '011709',
+        '铜仁': '012405',
+        '毕节': '012407',
+        '玉溪': '012504',
+        '西双版纳': '012510',
+        '保山': '012511',
+        '德宏': '012512',
+        '衡阳': '011905',
+        '怀化': '011910',
+        '湘西': '011913',
+        '宜昌': '011802',
+        '恩施': '011809',
+        '黄石': '011805',
+        '临沂': '011613',
+        '枣庄': '011604',
+        '喀什': '013111',
+        '黔西南': '012406',
+        '黔东南': '012408',
+        '黔南': '012409',
+        '贵阳': '012401',
+        '六盘水': '012402',
+        '安顺': '012404',
+        '六安': '011315',
+        '漳州': '011406',
+        '安康': '012709',
+        '日照': '011611',
+        '莆田': '011403',
+        '金昌': '012803',
+        '白银': '012804',
+        '张掖': '012807',
+        '武威': '012808',
+        '定西': '012809',
+        '陇南': '012810',
+        '平凉': '012811',
+        '庆阳': '012812',
+        '临夏': '012813',
+        '甘南': '012814',
+        '延安': '012706',
+        '湛江': '012010',
+        '荆州': '011803',
+        '芜湖': '011302',
+        '张家港': '011116',
+        '楚雄': '012506',
+        '马鞍山': '011304',
+        '安庆': '011307',
+        '黄冈': '011807',
+        '中山': '012006',
+        '蚌埠': '011303',
+        '泰兴': '011118',
+        '靖江': '011119',
+        '兴化': '011120',
+        '鹤壁': '011706',
+        '临汾': '010610',
+        '葫芦岛': '010814'
+    }
+}
+
+
+
+//  admaster
+$(function(){
+    if(window.pageName){
+        var nickname;
+        switch (window.pageName) {
+            case 'k8':
+                nickname = 'dzhg';
+                break;
+            case 'k4':
+                nickname = 'k4';
+                break;
+            case 'bsuv':
+                nickname = 'bsuv';
+                break;
+            case 'csuv':
+                nickname = 'csuv';
+                break;
+            case 'jk':
+                nickname = 'jk';
+                break;
+            case 'jl':
+                nickname = 'jl';
+                break;
+            case 'wk':
+                nickname = 'wk';
+                break;
+            case 'k85':
+                nickname = 'wzys';
+                break;
+        }
+        if(favList.indexOf(window.pageName) > -1){
+            _jcq.push(["_trackform", "#name", "focusin", nickname, "input", "name"])      //姓名
+            _jcq.push(["_trackform", "#sex", "click", nickname, "input", "gender"])      //性别
+            _jcq.push(["_trackform", "#phone", "focusin", nickname, "input", "phone"])      //手机
+            _jcq.push(["_trackform", "#province", "click", nickname, "input", "province"])      //省
+            _jcq.push(["_trackform", "#city", "click", nickname, "input", "city"])      //市
+            _jcq.push(["_trackform", "#dealer", "click", nickname, "input", "dealers"])      //经销商
+            _jcq.push(["_trackform", ".outlink", "click", nickname, "input", "privacy"])      //查看隐私协议
+            _jcq.push(["_trackform", "#agree", "click", nickname, "input", "agree"])      //同意隐私协议
+
+        }
+    }
+    if(location.href.indexOf('financial/buyCar') > -1){
+        // 购车支持
+        _jcq.push(["_trackform", ".testDriveCon #carList li", "click", "gczc", "input", "select"])      //选择车型
+        _jcq.push(["_trackform", ".testDriveCon #name", "focusin", "gczc", "input", "name"])      //姓名
+        _jcq.push(["_trackform", ".testDriveCon #name + select", "click", "gczc", "input", "gender"])      //性别
+        _jcq.push(["_trackform", ".testDriveCon #phone", "focusin", "gczc", "input", "phone"])      //手机号
+        _jcq.push(["_trackform", ".testDriveCon #province", "click", "gczc", "input", "province"])      //省
+        _jcq.push(["_trackform", ".testDriveCon #city", "click", "gczc", "input", "city"])      //市
+        _jcq.push(["_trackform", ".testDriveCon #dealer", "click", "gczc", "input", "dealers"])      //经销商
+        _jcq.push(["_trackform", ".testDriveCon .termsBar input", "click", "gczc", "input", "privacy"])      //查看隐私协议
+        _jcq.push(["_trackform", ".testDriveCon .termsBar a", "click", "gczc", "input", "agree"])      //同意隐私协议
+    }else if(location.href.indexOf('financial/testDrive') > -1){
+        // 预约试驾 - 首页
+        _jcq.push(["_trackform", ".testDriveCon #car", "click", "sy", "input", "select"])      //选择车型
+        _jcq.push(["_trackform", ".testDriveCon .nameInfo input", "focusin", "sy", "input", "name"])      //姓名
+        _jcq.push(["_trackform", ".testDriveCon .nameInfo select", "click", "sy", "input", "gender"])      //性别
+        _jcq.push(["_trackform", ".testDriveCon .tel", "focusin", "sy", "input", "phone"])      //手机号
+        _jcq.push(["_trackform", ".testDriveCon #province", "click", "sy", "input", "province"])      //省
+        _jcq.push(["_trackform", ".testDriveCon #city", "click", "sy", "input", "city"])      //市
+        _jcq.push(["_trackform", ".testDriveCon .Dealer", "click", "sy", "input", "dealers"])      //经销商
+        _jcq.push(["_trackform", ".testDriveCon .terms_Bar input", "click", "sy", "input", "privacy"])      //查看隐私协议
+        _jcq.push(["_trackform", ".testDriveCon .terms_Bar a", "click", "sy", "input", "agree"])      //同意隐私协议
+    }
+})

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jq订单练习</title>
+<script type="text/javascript" src="../jq/js/jquery-1.4.2.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#all").click(function() {
+			//通过属性选择器得到name为item的元素
+			$("input[name='item']").each(function() {
+				  $(this).attr("checked",$("#all").attr("checked"));
+			})
+		});
+	});
+	
+	//计算总价
+	function calcfn(){
+		var total = 0;
+		if(event.target.nodeName=="INPUT"){
+			$("input[name='item']").each(function() {
+				$("#total").text("总价：");
+				if(this.checked){
+					total += parseInt($(this).attr("value"));
+				}
+			});
+			$("#total").text("总价：" + eval(total));
+		}
+	}
+</script>
+</head>
+<body>
+	<body onclick="calcfn()">
+	<h3>订单练习</h3>
+	<input type="checkbox" name="item" value="10">记事本10元<br>
+	<input type="checkbox" name="item" value="2000">手机2000元<br>
+	<input type="checkbox" name="item" value="4000">电脑4000元<br>
+	<input type="checkbox" name="item" value="8000">电视机8000元<br>
+	<input type="checkbox" id="all">全选<br>
+	<p id="total">总价：</p>
+</body>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function downfn(){
+		if(event.keyCode == 13){
+			i2.click();
+		}
+	}
+</script>
+</head>
+<body>
+	<form action="http://www.baidu.com">
+		<input id="i2" type="text" placeholder="演示onkeydown" onkeydown="downfn()">
+		<input type="button" value="登录" onclick="alert('你点了我')">
+	</form>
+</body>
+</html>

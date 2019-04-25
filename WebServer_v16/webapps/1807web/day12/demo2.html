@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jQuery 增删改查</title>
+<script type="text/javascript" src="../jq/js/jquery-1.4.2.js"></script>
+<script type="text/javascript">
+	function myfn(){
+		var h3 = $("<h3>点个锤子！</h3>");
+		//$("#big").append(h3); //添加到最后面
+		$("#big").prepend(h3); //添加到最前面
+	}
+</script>
+</head>
+<body>
+	<input type="button" value="点我试试" onclick="myfn()">
+	<div id="big">
+		<h3>aaa</h3>
+		<h3>aaa</h3>
+	</div>
+</body>
+</html>

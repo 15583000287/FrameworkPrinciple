@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo3</title>
+<style type="text/css">
+</style>
+<script type="text/javascript" src="../jq/js/jquery-1.4.2.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("input:last").click(function() {
+			//得到所有输入框
+			var td1 = $("<td></td>");
+			var td2 = $("<td></td>");
+			var td3 = $("<td></td>");
+			var td4 = $("<td></td>");
+			td1.text($("input:eq(0)").val());
+			td2.text($("input:eq(1)").val());
+			td3.text($("input:eq(2)").val());
+			var delBtn = $("<input type='button' value='删除'>");
+			//把按钮放到删除td里面
+			td4.append(delBtn);
+			//创建tr
+			var tr = $("<tr></tr>");
+			tr.append(td1);
+			tr.append(td2);
+			tr.append(td3);
+			tr.append(td4);
+			$("table").append(tr);
+			delBtn.click(function() {
+				delBtn.parent().parent().remove();
+			})
+		})
+	})
+</script>
+</head>
+<body>
+	<input type="text" placeholder="姓名">
+	<input type="text" placeholder="年龄">
+	<input type="text" placeholder="工资">
+	<input type="button" value="添加"><hr>
+	<table border="1" width="50%" algin="center">
+		<caption>员工表</caption>
+		<tr>
+			<th>姓名</th>
+			<th>年龄</th>
+			<th>工资</th>
+			<th>操作</th>
+		</tr>
+	</table>
+</body>
+</html>

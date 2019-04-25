@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	alert(u1.value);
+	function add(){
+
+		var u1 = document.getElementById("u1");
+		var arr = i1.value.split(i2.value);
+		for(var i=0;i<arr.length;i++){
+			u1.innerHTML+="<li>"+arr[i]+"</li>"
+		}
+	}
+</script>
+</head>
+<body>
+	<input type="text" id="i1">
+	<input type="text" id="i2">
+	<input type="button" value="+" onclick="add()">
+	<ul id="u1"></ul>
+</body>
+</html>

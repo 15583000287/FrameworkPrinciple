@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>盒子模型</title>
+<style type="text/css">
+	#div1{
+		width: 300px;
+		height: 300px;
+		border: 1px solid red; 
+		/* 给某个方向外边距单独赋值
+		margin-top: 20px;
+		margin-left: 20px;
+		margin-bottom: 20px;
+		margin-right: 20px; 
+		*/
+		
+		/* 批量赋值外边距
+			margin: 30px; 四个方向全是30
+			margin: 10px 30px; 上下10左右10
+			margin: 0 auto; 水平居中（上下0）
+			margin: 10px 20px 30px 40px; 上右下左（顺时针）
+		 */
+		margin: 10px 20px 30px 40px;
+		
+		/* overflow: hidden; 解决粘连问题 */
+		/* 相邻两个元素都设置了上下外边距 ，则取最大值 */
+	}
+	#div2{
+		width: 300px;
+		height: 300px;
+		border: 1px solid green; 
+		margin-top: 10px;/* div1设置了下边距30px  此处设置了上边距10px 则取两者最大值30px */
+	}
+	body{
+		border: 1px solid blue;
+		margin-top: 20px;
+	}
+	
+	#small{
+		width: 50px;
+		height: 50px;
+		border: 1px solid green; 
+		margin-top: 100px;
+	}
+</style>
+</head>
+<body>
+	<div id="div1">
+		<div id="small">
+			
+		</div>
+	</div>
+	<div id="div2">div2</div>
+</body>
+</html>

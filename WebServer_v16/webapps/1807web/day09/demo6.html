@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo6</title>
+<style type="text/css">
+/* 	#i1{
+		margin-left: 100px;
+	} */
+</style>
+<script type="text/javascript">
+	var x = 0;
+	var y = 0;
+	onclick = function(){
+		//只能获取内联样式的值
+		//alert(i1.style.marginLeft);
+		
+		x+=2;
+		//设置的也是内联样式的值
+		i1.style.marginLeft=x+"px";
+	}
+	
+	setInterval(function() {
+		x+=2;
+		y+=2;
+		//设置的也是内联样式的值
+		i1.style.marginLeft=x+"px";
+		i1.style.marginTop=y+"px";
+	}, 100);
+</script>
+</head>
+<body>
+	<div id="d1">我是div</div>
+	<img id="i1" src="../day01/a.jpg" width="20%">
+</body>
+</html>

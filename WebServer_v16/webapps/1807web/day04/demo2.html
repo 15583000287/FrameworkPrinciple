@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo2.html</title>
+<style type="text/css">
+	div{
+		width:200px;
+		height:200px;
+		background-color: gray;
+	}
+	#d2{
+		/* 边框粗细  边框样式  边框颜色 */
+		border: 10px double red;
+		border-top: 10px solid green;
+		border-right: 10px solid blue;
+		border-bottom: 10px solid yellow;
+		border-radius: 50%;
+	}
+	span{
+		border: 1px solid blue;
+	}
+	#s2{
+		/* 行内元素四个边加边框全部生效，但是左右边框会影响元素所占宽度 上下边框不影响元素所占高度 */
+		border: 30px solid green;
+		margin-right: 10px;
+	}
+</style>
+</head>
+<body>
+	<div>div1</div>
+	<div id="d2">div2</div>
+	<div>div3</div>
+	
+	<span>span1</span><span id="s2">span2</span><span>span3</span>
+	<div>div4</div>
+</body>
+</html>

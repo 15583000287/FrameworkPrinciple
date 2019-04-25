@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>选择器</title>
+<link rel="stylesheet" href="first.css">
+<style type="text/css">
+	/* 
+		选择器：
+			标签选择器：
+			id选择器：如果要给页面中的某个元素添加样式使用id选择器
+			class选择器：
+			任意元素选择器：*{}  优先级低  因为选择的范围大
+			属性选择器：input[type='text']{ color:red; }
+	 */
+	.c1{
+		background: green;
+	}
+	#c4{
+		border: 3px solid purple;
+	}
+	div{
+		color:red;
+	}
+	*{
+		background-color: skyblue;
+		border:1px solid pink;
+	}
+	
+	input[type='text']{
+		color:yellow;
+	}
+	
+	input[type='password']{
+		color:red;
+	}
+</style>
+</head>
+<body>
+	<div class="c1">div1</div>
+	<div>div2</div>
+	<div class="c1">div3</div>
+	<div id="c4">div4</div>
+	<div class="c1">div5</div>
+	<p>这是一个p</p>
+	<h3>这是一个标题</h3>
+	<input type="text" placeholder="username">
+	<input type="password" placeholder="password">
+</body>
+</html>

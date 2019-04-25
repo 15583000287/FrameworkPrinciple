@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo6</title>
+<style type="text/css">
+	.myself{
+		float: left;
+	};
+</style>
+</head>
+<body>
+	<!-- 
+		action 提交的地址
+		value 文本框的默认值
+		maxlength: 允许输入最大长度
+		placeholder="用户名" 占位符  文本框什么都没写的时候，起一个提示作用
+		readonly="readonly" 只读不能修改值
+		id/<lable>/for 点击文字也能选中
+		checked="checked"  单选/复选框默认选中
+		selected="selected" 下拉框默认选中
+		type="hidden"  隐藏域(不需要给用户看，但是需要提交到服务器  例如id 用于区分)
+	-->
+	<form action="http://www.tmooc.cn" method="">
+		用户名<input type="text" name="username" value="root" readonly="readonly" placeholder="用户名" size="32"><br>
+		密 码<input type="password" name="password" placeholder="密码" size="32"><br>
+		<!-- 单选 -->
+		<hr>
+		性别：
+		<input type="radio" name="gender" value="nan" checked="checked" id="nan">
+		<label for="nan">男</label>
+		<input type="radio" name="gender" value="nv" id="nv">
+		<label for="nv">女</label>
+		<input type="radio" name="gender" value="other" id="other">
+		<label for="other">其他</label><br>
+		<hr>
+		爱好:
+		<input type="checkbox" name="hobby" value="read" checked="checked" id="read"><label for="read">读书</label>
+		<input type="checkbox" name="hobby"  value="skatebord" id="sk"><label for="sk">滑板</label>
+		<input type="checkbox" name="hobby" value="climb" id="climb"><label for="climb">攀登</label>
+		<hr>
+		生日：<input type="date" name="birthday">
+		<hr>
+		靓照：<input type="file" name="pic">
+		<hr>
+		<lable class="myself">个人介绍:</lable><textarea rows="5" cols="20" name="des">这家伙很懒，什么都没留下！</textarea>
+		<hr>
+		出生地：
+		<select name="city">
+			<option>请选择</option>
+			<option value="bj">北京</option>
+			<option value="sh" selected="selected">上海</option>
+			<option value="gz">广州</option>
+		</select>
+		<hr>
+		<!-- 隐藏域 -->
+		<input type="hidden" name="隐藏域" value="bbb">
+		<!-- 按钮 -->
+		<input type="submit" value="login">
+		<input type="reset" value="reset">
+		<input type="button" value="自定义按钮" onclick="alert('点你妹啊！')">
+	</form>
+</body>
+</html>

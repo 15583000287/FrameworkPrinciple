@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo6 订单练习</title>
+<script type="text/javascript">
+	function allfn(obj){
+		var arr = document.getElementsByName("item");
+		for(var i=0;i<arr.length;i++){
+			arr[i].checked = obj.checked;
+		}		
+	}
+	function calfn(){
+		//判断出当点击多选框的时间点
+		var obj = event.target || event.srcElement;
+		if(obj.nodeName=="INPUT"){
+			var arr = document.getElementsByName("item");
+			var money = 0;
+			for(var i=0;i<arr.length;i++){
+				//判断当前多选框是否被选中
+				if(arr[i].checked){
+					money += parseInt(arr[i].value);
+				}
+			}
+			//把得到的总价写入p标签
+			total.innerText = "总价："+money+"元";
+		}
+	}
+</script>
+</head>
+<body onclick="calfn()">
+	<h3>订单练习</h3>
+	<input type="checkbox" name="item" value="10">记事本10元<br>
+	<input type="checkbox" name="item" value="2000">手机2000元<br>
+	<input type="checkbox" name="item" value="4000">电脑4000元<br>
+	<input type="checkbox" name="item" value="8000">电视机8000元<br>
+	<input type="checkbox" onclick="allfn(this)">全选<br>
+	<p id="total">总价：</p>
+</body>
+</html>

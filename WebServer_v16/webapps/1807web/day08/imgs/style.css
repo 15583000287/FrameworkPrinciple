@@ -1,0 +1,388 @@
+.kvBox img {
+  display: block;
+  width: 100%;
+}
+
+a:visited, a:hover, a:-webkit-any-link, a:active {
+  color: #000;
+  text-decoration: none;
+}
+
+.overall {
+  position: relative;
+  padding-top: 70px;
+}
+
+.block {
+  position: relative;
+}
+
+.kvBox {
+  position: relative;
+}
+.kvBox > a {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: center no-repeat;
+  background-size: cover;
+}
+.kvBox .swiper-container {
+  width: 100%;
+  height: 100%;
+}
+.kvBox .swiper-container .swiper-wrapper div {
+  width: 100%;
+  height: 100%;
+  background: center no-repeat;
+  background-size: cover;
+}
+.kvBox .swiper-container .swiper-wrapper div[data-url="jl"] {
+  background-image: url(../img/kv/jl.jpg);
+}
+.kvBox .swiper-container .swiper-wrapper div[data-url="wk"] {
+  background-image: url(../img/kv/wk.jpg);
+}
+.kvBox .swiper-container .swiper-wrapper div[data-url="bsuv"] {
+  background-image: url(../img/kv/bsuv.jpg);
+}
+.kvBox .swiper-container .swiper-wrapper div[data-url="k4"] {
+  background-image: url(../img/kv/k4.jpg);
+}
+.kvBox .swiper-container .swiper-wrapper div[data-url="csuv"] {
+  background-image: url(../img/kv/csuv.jpg);
+}
+.kvBox .swiper-container .swiper-wrapper div[data-url="jk"] {
+  background-image: url(../img/kv/jk.jpg);
+}
+.kvBox .swiper-container .swiper-wrapper div[data-url="k8"] {
+  background-image: url(../img/kv/k8.jpg);
+}
+.kvBox .swiper-container .swiper-wrapper div[data-url="k85"] {
+  background-image: url(../img/kv/k8_5.jpg);
+}
+.kvBox .swiper-container .swiper-wrapper div[data-url="cp"] {
+  background-image: url(../img/kv/cp.jpg);
+}
+.kvBox .swiper-container .swiper-wrapper div[data-url="travel"] {
+  background-image: url(../img/kv/travel.jpg);
+}
+.kvBox .swiper-pagination-bullet {
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border-radius: 50%;
+  opacity: 1;
+}
+.kvBox .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background: #ffb300;
+}
+.kvBox .swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet {
+  margin: 0 12px;
+  outline: 0;
+}
+.kvBox .swiper-pagination-bullets.outside {
+  margin-top: 20px;
+  width: 100%;
+}
+.kvBox .swiper-pagination-bullets.outside .swiper-pagination-bullet {
+  margin: 0 12px;
+}
+
+.carsflow {
+  height: 3rem;
+  background: url(../img/block1.jpg) center/cover no-repeat;
+}
+.carsflow:after {
+  position: absolute;
+  z-index: 10;
+  left: 0;
+  right: 0;
+  bottom: .45rem;
+  height: .11rem;
+  background: url(../img/drag.png) no-repeat center;
+  background-size: auto .11rem;
+  content: '';
+  opacity: 0;
+}
+.carsflow.carson:after {
+  opacity: 1;
+  transition: all 1s;
+}
+.carsflow .mainContent {
+  height: 100%;
+}
+.carsflow .mainContent .swiper-next {
+  position: absolute;
+  z-index: 10;
+  width: .5rem;
+  height: 100%;
+  background: url(../img/next.png) no-repeat center;
+  background-size: auto .2rem;
+  right: -.5rem;
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.carsflow .mainContent .swiper-next:hover {
+  background: url(../img/next_hover.png) no-repeat center;
+  background-size: auto .2rem;
+}
+.carsflow .mainContent .swiper-prev {
+  position: absolute;
+  z-index: 10;
+  width: .5rem;
+  height: 100%;
+  background: url(../img/prev.png) no-repeat center;
+  background-size: auto .2rem;
+  left: -.5rem;
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.carsflow .mainContent .swiper-prev:hover {
+  background: url(../img/prev_hover.png) no-repeat center;
+  background-size: auto .2rem;
+}
+.carsflow .swiper-container {
+  padding-top: .8rem;
+  height: 100%;
+}
+.carsflow .swiper-slide {
+  width: 20%;
+  text-align: center;
+}
+.carsflow .swiper-slide .swiper-box {
+  transition: all .6s;
+  -webkit-transition: all .6s;
+  transform: scale(0.96);
+  -webkit-transform: scale(0.96);
+}
+.carsflow .swiper-slide .swiper-box::after {
+  content: '';
+  position: absolute;
+  left: 10%;
+  bottom: 10%;
+  width: 80%;
+  height: 13px;
+  background: url(../img/carsflow-active.png) bottom no-repeat;
+  opacity: 0;
+  transition: all .6s .2s;
+  -webkit-transition: all .6s .2s;
+}
+.carsflow .swiper-slide h3 {
+  margin: 0;
+  font-size: .13rem;
+  line-height: .16rem;
+}
+.carsflow .swiper-slide p {
+  margin: 0;
+  font-size: .07rem;
+  line-height: .16rem;
+  opacity: 0;
+}
+.carsflow .swiper-slide p em {
+  position: relative;
+  top: 0.01rem;
+  font-style: normal;
+}
+.carsflow .swiper-slide.swiper-slide-active .swiper-box {
+  transform: scale(1.6);
+  -webkit-transform: scale(1.6);
+}
+.carsflow .swiper-slide.swiper-slide-active .swiper-box::after {
+  opacity: 1;
+}
+.carsflow .swiper-slide.swiper-slide-active h3 {
+  font-weight: bold;
+}
+.carsflow .swiper-slide.swiper-slide-active p {
+  opacity: 1;
+}
+.carsflow .swiper-slide img {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  cursor: pointer;
+}
+
+.functional {
+  height: 2.76rem;
+  background: #000;
+}
+.functional .mainContent {
+  height: 100%;
+  display: flex;
+  display: -webkit-flex;
+}
+.functional .mainContent a {
+  flex: 1;
+  -webkit-flex: 1;
+  float: left;
+  position: relative;
+  top: -.35rem;
+  width: 25%;
+  height: 2.86rem;
+  background: url(../img/block1-f-1.jpg) center no-repeat;
+  transition: all .6s;
+  -webkit-transition: all .6s;
+}
+.functional .mainContent a:nth-child(2) {
+  top: -.21rem;
+  background-image: url(../img/block1-f-5.jpg);
+}
+.functional .mainContent a:nth-child(3) {
+  background-image: url(../img/block1-f-3.jpg);
+}
+.functional .mainContent a:nth-child(4) {
+  top: -.21rem;
+  background-image: url(../img/block1-f-4.jpg);
+}
+.functional .mainContent a:hover {
+  flex: 1.5;
+  -webkit-flex: 1.5;
+}
+
+.jeepClub {
+  height: 8.07rem;
+  background: url(../img/block3.jpg) bottom no-repeat;
+  background-size: 100%;
+}
+
+.title {
+  text-align: center;
+}
+.title h2 {
+  margin: 0;
+  padding-top: .21rem;
+  font-weight: bold;
+  font-size: .25rem;
+  line-height: .5rem;
+}
+.title p {
+  margin: 0;
+  font-size: .16rem;
+  line-height: .32rem;
+}
+
+.entries {
+  position: relative;
+  margin-top: .21rem;
+  height: 4.38rem;
+}
+.entries > .bg {
+  position: relative;
+  height: 3.96rem;
+  background: #fff;
+  overflow: hidden;
+}
+.entries > .bg > a {
+  position: absolute;
+  width: 100%;
+  opacity: 0;
+  z-index: 5;
+  transition: opacity .5s;
+  -webkit-transition: opacity .5s;
+}
+.entries > .bg > a.on {
+  opacity: 1;
+  z-index: 7;
+}
+.entries > .bg > a > img {
+  display: block;
+  width: 100%;
+}
+.entries .nav {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 10;
+}
+.entries .nav > a {
+  display: inline-block;
+  position: relative;
+  margin: 0 5px;
+  width: 2.02rem;
+}
+.entries .nav > a > img {
+  display: block;
+  width: 100%;
+}
+.entries .nav > a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 6px;
+  background: #fabe00;
+  opacity: 0;
+  transition: opacity .5s;
+  -webkit-transition: opacity .5s;
+}
+.entries .nav > a.on::after {
+  opacity: 1;
+}
+
+.fastlink {
+  position: relative;
+  height: 1.44rem;
+  background: #e7e7e7;
+}
+.fastlink .links {
+  display: flex;
+  -webkit-display: flex;
+  justify-content: space-between;
+  position: absolute;
+  left: 0;
+  top: -.78rem;
+  width: 100%;
+  text-align: center;
+}
+.fastlink .links > a {
+  flex: 1;
+  -webkit-flex: 1;
+  display: inline-block;
+  margin: 0 5px;
+  font-weight: bold;
+  font-size: .15rem;
+  color: #000;
+}
+.fastlink .links > a:first-child {
+  margin-left: 0;
+}
+.fastlink .links > a:last-child {
+  margin-right: 0;
+}
+.fastlink .links > a > .imgbox {
+  display: block;
+  margin-bottom: .1rem;
+  width: 100%;
+  overflow: hidden;
+}
+.fastlink .links > a > .imgbox > img {
+  display: block;
+  width: 100%;
+  transition: all 1s;
+  -webkit-transition: all 1s;
+}
+.fastlink .links > a > .imgbox > img:hover {
+  transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+}
+.fastlink .links > a .glyphicon {
+  left: 0;
+  top: .04rem;
+  color: #fabe00;
+  transition: all .5s;
+  -webkit-transition: all .5s;
+}
+.fastlink .links > a:hover .glyphicon {
+  left: 5px;
+}
+
+/*# sourceMappingURL=style.css.map */

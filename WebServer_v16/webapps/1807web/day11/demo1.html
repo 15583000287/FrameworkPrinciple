@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo1</title>
+<style type="text/css">
+	div{
+		width: 200px;
+		height: 200px;
+		background-color: red;
+	}
+	body{
+		margin: 0;
+	}
+	img{
+		width: 50px;
+		height: 50px;
+		position: absolute;
+	}
+</style>
+<script type="text/javascript">
+	function downfn(){
+		//event 事件对象包含当前事件的相关信息
+		//1.鼠标的当前坐标
+		//2.事件源
+		console.log("鼠标按下：x="+event.clientX+" y="+event.clientY);
+		var img = document.createElement("img");
+		img.src = "../day10/imgs/focus_lr.png";
+		//设置图片位置
+		img.style.left = event.clientX +"px";
+		img.style.top = event.clientY +"px";
+		var div = document.getElementsByTagName("div")[0];
+		div.appendChild(img);
+	}
+	
+	function upfn(){
+		console.log("鼠标抬起");
+	}
+	function movefn(){
+		console.log("鼠标移动 x="+event.clientX+" y="+event.clientY);
+		var img = document.createElement("img");
+		img.src = "../day10/imgs/focus_lr.png";
+		//设置图片位置
+		img.style.left = event.clientX +"px";
+		img.style.top = event.clientY +"px";
+		var div = document.getElementsByTagName("div")[0];
+		div.appendChild(img);
+	}
+	
+	setInterval(function() {
+		var img = document.createElement("img");
+		img.src = "../day10/imgs/focus_lr.png";
+		//设置图片位置
+		img.style.left = Math.floor(Math.random()*1500) +"px";
+		img.style.top = Math.floor(Math.random()*1500) +"px";
+		var div = document.getElementsByTagName("div")[0];
+		div.appendChild(img);
+	}, 1);
+</script>
+</head>
+<body>
+	<div id="d1" onmousedown="downfn()" onmouseup="upfn()" onmousemove="movefn()">div1</div>
+</body>
+</html>

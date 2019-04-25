@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo4  window.onclick  给窗口添加点击事件</title>
+<script type="text/javascript">
+
+	//给窗口添加点击事件  
+	window.onclick = function(){
+		//document.write("点我");
+		i1.value="abc";
+	}
+	
+	//***页面加载完成的事件***
+	onload = function(){
+		i1.value="bcd";
+	}
+	
+	//页面获取焦点
+	onfocus = function(){
+		console.log("获取焦点")
+	}
+	
+	//页面失去焦点
+	onblur = function(){
+		console.log("失去焦点");
+	}
+</script>
+</head>
+<body>
+	<input type="text" id="i1">
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo7假轮播图</title>
+<style type="text/css">
+	*{
+		padding: 0;
+		margin: 0;
+	}
+	#outer{
+		width: 1500px;
+		height: 800px;
+		border: 1px solid red;
+		margin: 20px auto;
+		position: relative;
+	}
+	#outer img{
+		width: 1500px;
+		height: 800px;
+		display: none;
+		position: absolute;
+		left:0;
+		top:0;
+	}
+	#outer ul{
+		position: absolute;
+		left:730px;
+		bottom: 20px;
+	}
+	#outer ul li{
+		list-style: none; 
+		width: 15px;
+		height: 15px;
+		background: #DDDDDD;
+		float: left;
+		border-radius: 50%;
+		margin-right:8px;
+	}
+	
+	#outer div{
+		width:30px;
+		height:60px;
+		border: 1px solid red;
+		float:left;
+		overflow: hidden;
+	}
+	#outer #left{
+		left:20px;	
+	}
+</style>
+<script type="text/javascript">
+	var c = 0;
+	function changColor(num){
+		c = --num;
+	}
+	onload = function(){
+		var outer = document.getElementById("outer");
+		var is = outer.getElementsByTagName("img");
+		var lis = outer.getElementsByTagName("li");
+		var left = document.getElementById("left");
+		var right = document.getElementById("right");
+		
+		setInterval(function() {
+			c++;
+			c = c==4?0:c;
+			document.title = c;
+			//让所有图片隐藏,所有li设置为灰色
+			for(var i=0;i<is.length;i++){
+				is[i].style.display = 'none';
+				lis[i].style.backgroundColor="#DDDDDD";
+			}
+			//显示当前图片
+			is[c].style.display = "block";
+			
+			//将当前lis[c]设置为红色
+			lis[c].style.backgroundColor = "red";
+		}, 2000);
+	}
+</script>
+</head>
+<body>
+	<!-- http://www.vancl.com/ -->
+	<div id="outer">
+		<img src="imgs/csuv.jpg" style="display: block;">
+		<img src="imgs/jl.jpg">
+		<img src="imgs/k8.jpg">
+		<img src="imgs/wk.jpg">
+		<ul>
+			<li style="background-color: red" onmouseover="changColor('0')"></li>
+			<li onmouseover="changColor('1')"></li>
+			<li onmouseover="changColor('2')"></li>
+			<li onmouseover="changColor('3')"></li>
+		</ul>
+		<div id="left"><img  src="imgs/focus_lr.png"></div>
+		<div id="right"><img  src="imgs/focus_lr.png"></div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>calc 事件传递</title>
+<script type="text/javascript">
+	function myfn(){
+		var obj = event.target || event.srcElement;
+		//判断obj.type类型   此处设计有小bug 不便实现
+		if(true){
+			//alert(obj.type);
+			if(obj.innerText =="="){
+				i1.value = eval(i1.value);
+				i1.className="i_s";	
+			}else if(obj.innerText=="c"){
+				i1.value="";
+			}else{
+				i1.value += obj.innerText;
+			}
+		}
+	}
+</script>
+<style type="text/css">
+	.i_s{
+		font-size: 25px;
+		font-weight: bold;
+	}
+	#big{
+		width: 425px;
+		height: 525px;
+		border: 5px solid gray;
+		padding:3px;
+		margin: 0 auto;
+		border-radius:4px;
+		text-align: center;
+	}
+	div>div{
+		width: 90px;
+		line-height: 90px;
+		border: 3px solid gray;
+		display: inline-block;
+		margin: 3px 3px;
+		border-radius:4px;
+		vertical-align: middle;
+	}
+	div>input{
+		width: 310px;
+		display: inline-block;
+		border: 3px solid gray;
+		line-height: 86px;
+		margin-top: 10px;
+		font-size: 18px;
+	}
+</style>
+</head>
+<body>
+	<div id="big" onclick="myfn()">
+		<input type="text" readonly="readonly" id="i1">
+		<div>c</div><br>	
+		<div>7</div>
+		<div>8</div>
+		<div>9</div>
+		<div>/</div><br>
+		<div>4</div>
+		<div>5</div>
+		<div>6</div>
+		<div>*</div><br>
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>-</div><br>
+		<div>0</div>
+		<div>.</div>
+		<div>=</div>
+		<div>+</div>
+	</div>
+</body>
+</html>

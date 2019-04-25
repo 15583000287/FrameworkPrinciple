@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo4</title>
+<style type="text/css">
+	#d1{
+		
+	}
+</style>
+<script type="text/javascript">
+	function getText(){
+		var input = document.getElementById("myinput");
+		if(isNaN(input.value)){
+			input.value="不是一个数字";
+		}else{		
+			input.value=input.value*input.value;
+		}
+	}
+	
+</script>
+</head>
+<body>
+	<input type="text" id="myinput" placeholder="说点什么...">
+	<input type="button" value="平方" onclick="getText()">
+	<div id="d1"></div>
+</body>
+</html>

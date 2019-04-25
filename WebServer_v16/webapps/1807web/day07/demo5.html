@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>calc</title>
+<script type="text/javascript">
+/* 	//获取连个文本框的内容
+	window.onload = function(){
+		var i1 = document.getElementById("i1");
+		var i2 = document.getElementById("i2");
+		var d1 = document.getElementById("d1");
+	}
+
+	function add(){
+		d1.innerText=parseInt(i1.value)+parseInt(i2.value);
+	}
+	function subtract(){
+		d1.innerText=i1.value-i2.value;
+	}
+	function multiply(){
+		d1.innerText=i1.value*i2.value;
+	}
+	function divide(){
+		d1.innerText=i1.value/i2.value;
+	} */
+	
+	function calc(flag){
+		var x = document.getElementById("i1").value;
+		var y = document.getElementById("i2").value;
+		var d1 = document.getElementById("d1");
+		var result = 0;
+		switch(flag){
+			case 1:
+				result = parseInt(x)+parseInt(y);
+				break;
+			case 2:
+				result = x-y;
+				break;
+			case 3:
+				result = x*y;
+				break;
+			case 4:
+				result = x/y;
+				break;
+		}
+		d1.innerText=result;
+	}
+</script>
+</head>
+<body>
+<input type="text" id="i1"/>
+<input type="text" id="i2"/>
+<input type="button" value="+" onclick="calc(1)">
+<input type="button" value="-" onclick="calc(2)">
+<input type="button" value="*" onclick="calc(3)">
+<input type="button" value="/" onclick="calc(4)">
+<div id="d1"></div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo1</title>
+<script type="text/javascript" src="../jq/js/jquery-1.4.2.js"></script>
+<script type="text/javascript">
+	/* $(function(){
+		//得到所有第二层ul  让其隐藏
+		$("li>ul").hide();
+		$("body>ul>li").click(function() {
+			//切换点击li里面的ul 隐藏和显示
+			$(this).children().toggle();
+			//得到其他的li里面的ul让其隐藏
+			$(this).siblings().children().hide();
+		})
+	}); */
+	
+	
+	$(function(){
+		$("li>ul").hide();
+		$("body>ul>li").click(function() {
+			$(this).children().toggle();
+			$(this).siblings().children().hide();
+		})
+		
+	})
+	
+</script>
+</head>
+<body>
+	<ul>
+		<li>美女好友
+			<ul>
+				<li>冰冰</li>
+				<li>苍老师</li>
+				<li>貂蝉</li>
+			</ul>
+		</li>
+		<li>工作好友
+			<ul>
+				<li>杰克马</li>
+				<li>马化腾</li>
+				<li>马云</li>
+			</ul>
+		</li>
+		<li>亲朋好友
+			<ul>
+				<li>习大大</li>
+				<li>习爷爷</li>
+				<li>毛爷爷</li>
+			</ul>
+		</li>
+	</ul>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>校验</title>
+<style type="text/css">
+	.ok{
+		color: green;
+	}
+	.err{
+		color: red;
+	}
+</style>
+<script type="text/javascript">
+	function checkfn(){
+		var reg = /^\w{6,10}$/;
+		if(reg.test(i1.value)){
+			s1.className="ok";
+		}else{     
+			s1.className="err";
+		}
+		if(reg.test(i2.value)){
+			s2.className="ok";
+		}else{
+			s2.className="err";
+		}
+	}
+</script>
+</head>
+<body>
+	<input type="text" placeholder="username" id="i1">
+	<span id="s1">由6-10位数字、字母、下划线组成</span><br>
+	<input type="text" placeholder="password" id="i2">
+	<span id="s2">由6-10位数字、字母、下划线组成</span><br>
+	<input type="button" value="校验" onclick="checkfn()">
+</body>
+</html>

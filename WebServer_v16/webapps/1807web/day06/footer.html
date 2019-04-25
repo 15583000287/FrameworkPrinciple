@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	footer{
+		width: 1000px;
+		margin: 0 auto;
+		text-align: center;
+	}
+	footer>div{
+		overflow: hidden;/* 解决不识别高度问题 */
+	}
+	footer>div>div{
+		float: left;
+		width: 330px;
+	}
+	
+	#center{
+		border: 1px solid green;
+	}
+	
+	#center>ul>ul{
+		margin-left: -60px;
+		float: left;
+	}
+	#center>ul>ul>li{
+		
+		list-style-type: none;
+		color: #808080;
+		font-size: 12px;
+		margin: 10px 0;
+		width: 111px;
+	}
+	#center>ul>ul,#right h2{
+		font-size: 12px;
+	}
+	
+	
+	#right{
+		border: 1px solid red;
+	}
+	#right>div{
+		width: 130px;
+	}
+	#right>img{
+		float: right;
+	}
+</style>
+</head>
+<body>
+	<footer>
+		<div style="border:1px solid red;">
+			<div id="left">
+				<img src="../../web/images/footer/logo.png">
+				<img src="../../web/images/footer/footerFont.png">	
+			</div>
+			<div id="center">
+				<ul>
+					<ul>
+						买家帮助
+						<li>新手指南</li>
+						<li>服务保障</li>
+						<li>常见问题</li>
+					</ul>
+					<ul>
+						商家帮助
+						<li>商家入驻</li>
+						<li>商家后台</li>
+					</ul>
+					<ul>
+						关于我们
+						<li>关于达内</li>
+						<li>联系我们</li>
+						<li>
+							<img src="../../web/images/footer/wechat.png">
+							<img src="../../web/images/footer/sinablog.png">
+						</li>
+					</ul>
+				</ul>
+			</div>
+			<div id="right">
+				<div>
+					<h2>学子商城客户端</h2>
+					<a href="#"><img src="../../web/images/footer/ios.png"></a>
+					<a href="#"><img src="../../web/images/footer/android.png"></a>
+					<img src="../../web/images/footer/erweima.png">
+				</div>
+			</div>
+		</div>
+		<p>©2017 达内集团有限公司 版权所有 京ICP证xxxxxxxxxxx</p>
+	</footer>
+</body>
+</html>

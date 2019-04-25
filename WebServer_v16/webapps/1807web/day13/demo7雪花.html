@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo7雪花</title>
+<style type="text/css">
+	img{
+		position: absolute;
+	}
+	body{
+		position: relative;
+		background-color: black;
+		overflow: hidden;
+	}
+</style>
+<script type="text/javascript" src="../jq/js/jquery-1.4.2.js"></script>
+<script type="text/javascript">
+	setInterval(function() {
+		//屏幕宽高
+		var w = document.body.parentElement.clientWidth;
+		var h = document.body.parentElement.clientHeight;
+	
+		var img = $("<img src='a.png'>");
+		//设置雪花随机尺寸
+		var x = Math.floor(Math.random()*20)+20+"px";
+		var left = Math.floor(Math.random()*(w-parseInt(x)))+"px";//随机宽度
+		img.css({"width":x,"height":x,"left":left});
+		//让雪花移动到屏幕最下方
+		img.animate({"top":h-parseInt(x)+"px"},2000+Math.floor(Math.random()*2000));
+		
+		$(document.body).append(img);
+	}, 10);
+</script>
+</head>
+<body>
+
+</body>
+</html>

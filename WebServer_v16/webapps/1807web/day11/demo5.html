@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo5</title>
+<style type="text/css">
+	p,div{
+		border: 1px solid red;
+		padding:30px;
+	}
+</style>
+<script type="text/javascript">
+	/* function fn1(){
+		alert("button点击事件");
+	}
+	function fn2(){
+		alert("p点击事件");
+	} */
+	function fn3(){
+		var obj = event.target || event.srcElement;
+		alert(obj.nodeName+"点击事件")
+	}
+</script>
+</head>
+<body>
+	<div onclick="fn3()"> 
+		<p onclick="fn2()">
+			<input type="button" value="按钮" onclick="fn1()">
+		</p>
+	</div>
+</body>
+</html>

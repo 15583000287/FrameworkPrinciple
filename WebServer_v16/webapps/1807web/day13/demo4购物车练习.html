@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo4 jq购物车练习</title>
+<style type="text/css">
+	h1{
+		text-align: center;
+	}
+	table{
+		margin: 0 auto;
+		border: 1px solid red;
+		width: 80%;
+		/* 让表格两条线变一条线 */
+		border-collapse: collapse;
+	}
+	tr,td,th{
+		border: 1px solid red;
+		padding:10px 20px;
+		text-align: center;
+	}
+</style>
+<script type="text/javascript" src="../jq/js/jquery-1.4.2.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("input[value='加入购物车']").click(function() {
+			//得到button的tr下的所有td
+			var name = $(this).parent().siblings().eq(0).text();
+			var price = $(this).parent().siblings().eq(1).text();
+			//创建td
+			var nametd = $("<td>"+name+"</td>");  //相当于createElement("td")
+			var pricetd = $("<td>"+price+"</td>");
+			var numtd = $("<td><input type='button' value='-' onclick='myfn(-1)'><span>1</span><input type='button' value='+' onclick='myfn(1)'></td>");
+			var moneytd = $("<td>"+price+"</td>");
+			var deltd = $("<input type='button' value='删除' onclick='delfn()'>");
+			//创建tr
+			var tr = $("<tr></tr>");
+			tr.append(nametd);
+			tr.append(pricetd);
+			tr.append(numtd);
+			tr.append(moneytd);
+			tr.append(deltd);
+			//去重复
+			var flag = false;
+			$("table:last tr").each(function() {
+				if($(this).children().eq(0).text()==name){
+					alert("有重复 "+$(this).children().eq(2).children().eq(2)[0].nodeName);
+					//事件模拟 触发+事件    失败了  ***************************
+					$(this).children().eq(2).children().eq(2).trigger("click", 1);
+					calcfn();
+					flag = true;
+					return;
+				}
+			});
+			if(flag){
+				return;
+			}
+			//将tr添加到总价的上面
+			$("#total").before(tr);
+			alert("方法没结束！");
+			calcfn();
+		});
+	})
+	
+	//删除
+	function delfn(){
+		$(event.target).parent().remove();
+		calcfn();
+	}
+	
+	//计算单品总价
+	function myfn(x){
+		//得到事件源
+		var btn = event.target || event.srcElement;
+		//取出原来的值
+		var num = $(btn).siblings("span").text();
+		var newNum  = parseInt(num)+x;
+		//重新赋值
+		$(btn).siblings("span").text(newNum<1?1:newNum);
+		if(newNum<1){
+			newNum = 1;
+		}
+		//得到单价
+		var pri = $(btn).parent().prev().text();
+		//数量*单价
+		$(btn).parent().next().text(pri*newNum);
+		calcfn();
+	}
+	
+	//计算总金额
+	function calcfn(){
+		var total = 0;
+		//得到第二个table里面的所有tr并遍历
+		$("table:last tr").each(function() {
+			//得到每个商品的总金额
+			var money = $(this).children().eq(3).text();
+			money = parseInt(money);
+			//把不是数的过滤掉(过滤掉金额)
+			if(!isNaN(money)){
+				total += money;
+			}
+		})
+		//添加到总金额上
+		$("#total td").text("总金额："+total);
+	}
+</script>
+</head>
+<body>
+	<h1>特价商品</h1>
+	<table>
+		<tr>
+			<th>名称</th>
+			<th>单价</th>
+			<th>库存</th>
+			<th>好评率</th>
+			<th>操作</th>
+		</tr>
+		<tr>
+			<td>水杯</td>
+			<td>25</td>
+			<td>3</td>
+			<td>89%</td>
+			<td><input type="button" value="加入购物车"></td>
+		</tr>
+		<tr>
+			<td>香皂</td>
+			<td>10</td>
+			<td>200</td>
+			<td>100%</td>
+			<td><input type="button" value="加入购物车"></td>
+		</tr>
+		<tr>
+			<td>不锈钢盆</td>
+			<td>8</td>
+			<td>200</td>
+			<td>100%</td>
+			<td><input type="button" value="加入购物车"></td>
+		</tr>
+	</table>
+	
+	<h1>购物车</h1>
+	<table>
+		<tr>
+			<th>名称</th>
+			<th>单价</th>
+			<th>数量</th>
+			<th>金额</th>
+			<th>操作</th>
+		</tr>
+		<tr id="total">
+			<td colspan="5" style="text-align: right">总金额：0</td>
+		</tr>
+	</table>
+</body>
+</html>

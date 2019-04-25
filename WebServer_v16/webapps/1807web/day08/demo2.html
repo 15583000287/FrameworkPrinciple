@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	.red{
+		width: 100px;
+		height: 100px;
+		background-color: red;
+		margin:5px;
+		display: inline-block;
+	}
+</style>
+<script type="text/javascript">
+	function add(){
+		var row = document.getElementById("row");
+		var col = document.getElementById("col");
+		var d1 = document.getElementById("d1");
+		for(var i=0;i<row.value;i++){
+			for(var j=0;j<col.value;j++){
+				d1.innerHTML+="<div class='red'><div>";
+			}
+			d1.innerHTML+="<br>";
+		}
+	}
+</script>
+</head>
+<body>
+	<input type="text" id="row" placeholder="row">
+	<input type="text" id="col" placeholder="col">
+	<input type="button" id="b1" value="+" onclick="add()">
+	<div id="d1"></div>
+</body>
+</html>

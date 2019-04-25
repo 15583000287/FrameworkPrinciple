@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo3</title>
+<script type="text/javascript" src="../jq/js/jquery-1.4.2.js"></script>
+<script type="text/javascript">
+	function add(){
+		var li = $("<li></li>");
+		li.text($("#text").val());
+		$("ul").append(li);
+	}
+	function insert(){
+		var li = $("<li></li>");
+		li.text($("#text").val());
+		//$("li:contains('上海')").before(li);
+		$("#sh").before(li);
+	}
+	function removemy(){
+		$("#sh").remove();//刪除
+	}
+</script>
+</head>
+<body>
+	<input id="text" type="text" placeholder="输入城市名">
+	<input type="button" value="添加" onclick="add()">
+	<input type="button" value="插入" onclick="insert()">
+	<input type="button" value="删除" onclick="removemy()">
+	<ul id="ul">
+		<li>北京</li>
+		<li id="sh">上海</li>
+		<li>广州</li>
+	</ul>
+</body>
+</html>

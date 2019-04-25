@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo4</title>
+	<style type="text/css">
+		div{
+			width:200px;
+			height:50px;
+			background-color: yellow;
+			/* 
+				文本对齐方式： text-align:center;  
+				文本修饰：text-decoration:underline;
+					underline; 下划线
+					overline; 上划线
+					line-through; 删除线
+					none 无(去掉超链接的下划线)
+				文本颜色：color:green;
+				文本阴影：text-shadow:red 5px 5px 1px; 阴影颜色，2和3阴影偏移坐标，阴影模程度值(越大越模糊)
+				文本行高：line-height: 50px; 用于实现上下居中，把行高设置成div高度
+					
+			 */
+			text-align:center;
+			text-decoration: overline;
+			text-decoration: line-through;
+			/* 文本颜色 */
+			color: red;
+			/* 文本阴影 */
+			text-shadow:red -5px 5px 1px;
+			/* 行高 用于实现上下居中 */
+			line-height: 50px;
+		}
+		a{
+			text-decoration:none;
+		}
+	</style>
+</head>
+<body>
+	<div>该吃午饭了</div>
+	<a href="#">text-decoration: none; 去掉超链接的下划线</a>
+</body>
+</html>

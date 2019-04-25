@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>假轮播图</title>
+<style type="text/css">
+	img{
+		width: 1200px;
+		height: 700px;
+	}
+	div{
+		width: 1200px;
+		height: 700px;
+		overflow: hidden;
+	}
+</style>
+<script type="text/javascript">
+	var x = 0;//用于自增的值
+	//开启每隔两秒执行的定时器
+	setInterval(function() {
+		var visibleIndex = ++x%4;
+		document.title= visibleIndex;
+		//得到所有图片数组
+		var imgs = document.getElementsByTagName("img");
+		//遍历
+		for(var i=0;i<imgs.length;i++){
+			//判断i的值是否是显示的位置
+			if(i==visibleIndex){//显示
+				imgs[i].style.display = "block";
+			}else{//隐藏
+				imgs[i].style.display = "none";
+			}
+		}
+	}, 2000);
+</script>
+</head>
+<body>
+	<div>
+		<img src="imgs/csuv.jpg">
+		<img src="imgs/jl.jpg">
+		<img src="imgs/k8.jpg">
+		<img src="imgs/wk.jpg">
+	</div>
+</body>
+</html>

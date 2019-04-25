@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html onclick="pause()">
+<head>
+<meta charset="UTF-8">
+<title>jq僵尸大战</title>
+<style type="text/css">
+	body{
+		background-repeat: no-repeat;
+		margin: 0 0;
+		position: relative;
+		overflow: hidden;
+	}
+	img{
+		width: 80px;
+		height: 70px;
+		position: absolute;
+	}
+	h3{
+		display: inline-block;
+		position: absolute;
+		color: white;
+	}
+	#left{
+		left:50px;
+	}
+	#right{
+		right: 100px;
+	}
+	
+	/* 背景音乐播放器 */
+	audio{
+		display:block;
+		background-color: rgba(255,255,255,0.5);
+		position: absolute;
+		left:150px;
+	}
+	
+	/* 暂停效果 */
+	#pause{
+		width: 100px;
+		height: 100px;
+		padding: 30px 20px;
+		color: white;
+		position: absolute;
+		margin-left:500px;
+		display:none;
+		background: rgba(255,255,255,0.5);
+	}
+</style>
+<!-- js代码 -->
+<script type="text/javascript" src="../jq/js/jquery-1.4.2.js"></script>
+<script type="text/javascript">
+	//窗口宽高(全局变量)
+	var width;
+	var height;
+	var seccessCount = 0;
+	var failCount = 0;
+	//页面加载完成事件
+	$(function(){
+		var body = $("body");
+		body.css("background-image","url(imgs/bg1.jpg)");
+		width = $(window).width();
+		height = $(window).height();
+		addImg();
+		moveImg();
+	});
+	
+	//当窗口发生改变事件
+	onresize = function(){
+		changeSize();
+	}
+	//改变背景图片尺寸
+	function changeSize(){
+		width = $(window).width();
+		height = $(window).height();
+		$("body").height(height);
+		document.body.style.backgroundSize = width+"px " +height+"px";//注意 属性值中间有空格
+	}
+	
+	//播放背景音乐
+	
+	
+	//添加图片定时器
+	var addImgTime;
+	var imgArr = ["imgs/zomb0.png","imgs/zomb1.png","imgs/zomb2.png","imgs/zomb3.png"];
+	function addImg(){
+			addImgTime = setInterval(function() {
+			var ran = Math.floor(Math.random()*4);//随机图片下标
+			var img = $("<img src='"+ imgArr[ran] +"'>");
+			img.css("position","absolute");
+			img.css("left",width);
+			//img的随机top值
+			var top = Math.floor(Math.random()*(height-70));
+			img.css("top",top);
+			$("body").append(img);
+		}, 1000);
+	}
+	
+	//图片移动定时器
+	var moveImgTime;
+	function moveImg(){
+			moveImgTime = setInterval(function() {
+			$("img").each(function() {
+				var oldLeft = parseInt(this.style.left);
+				oldLeft--;
+				//判断越界删除图片
+				if(oldLeft<=-80){
+					$(this).remove();
+					failCount++;
+					$("#right").text("失败: "+failCount);
+				}
+				$(this).css("left",oldLeft);
+			});
+		}, 10);
+	}
+	
+	//杀敌方法
+	function slayFoe(){
+		var obj = event.target||event.srcElement;
+		if(obj.nodeName=="IMG"){
+			$(obj).remove();
+			seccessCount++;
+			$("#left").text("成功: "+seccessCount);
+		}
+	}
+	
+	//暂停功能   清除定时器方法http://www.cnblogs.com/daysme/p/6428439.html
+	var pauseCount = 0;
+	function pause(){
+		pauseCount++;
+		if(pauseCount%2!=0){
+			//暂停
+			addImgTime = clearInterval(addImgTime);
+			moveImgTime = clearInterval(moveImgTime);
+			$("#pause").show();
+		}else{
+			//启动
+			$("#pause").hide();
+			addImg();
+			moveImg();
+		}
+	}
+	
+	
+	
+</script>
+</head>
+<body onmouseover="slayFoe()">
+	<h3 id="left">成功: 0</h3>
+	<h3 id="right">失败: 0</h3>
+	<div>
+		<audio src="music/bg_music.mp3" controls="controls" loop="loop" autoplay="autoplay"></audio>
+	</div>
+	<div id="pause">pause</div>
+</body>
+</html>

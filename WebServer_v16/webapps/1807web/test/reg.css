@@ -1,0 +1,172 @@
+@CHARSET "UTF-8";
+	/* header */
+	body{
+		margin: 0;
+	}
+	header>div>img{
+		width: 168px;
+		height: 41px;
+	}
+	header>div>span{
+		color: #4f4d4e;
+		font-size: 24px;
+		vertical-align: baseline;
+		position: relative;
+		top: -7px;
+		left:10px;
+	}
+	header>div {
+		padding:20px 0 30px 40px;
+		background-color: #F5F5F5;
+	}
+	
+	/* article */
+	.container{
+		height: 560px;
+		background-image: url("images/regist.png");
+		background-size: 100% 560px;
+		position: relative;
+	}
+	.reg_panel{
+		width: 590px;
+		height: 465px;
+		background-color: rgba(0,0,0,0.2);
+		position: absolute;
+		top:40px;
+		right: 20px;
+		color: white;
+	}
+	#text{
+		padding: 10px;
+	}
+	#text p{
+		font-size: 18px;
+	}
+	#text a{
+		color: white;
+		font-size:12px;
+		text-decoration: none;
+		position: relative;
+		left: 207px;
+	}
+	.form_group{
+		position:relative;
+		margin-bottom: 30px;
+		/* border: 1px solid red; */
+	}
+	.form_group>label{
+		display: inline-block;
+		width: 90px;
+		text-align:right;
+		font-size: 14px;
+	}
+	.form_group>input{
+		width:250px;
+		margin:0 10px;
+		line-height: 35px;
+		padding-left:15px;
+		border:none;
+		border-radius: 3px;
+	}
+	/* 错误提示 */
+	.msg_error{
+		font-size:12px;
+		border-radius:2px;
+		padding:2px;
+	}
+	
+	.btn>input{
+		width:260px;
+		margin:0 105px;
+		line-height: 35px;
+		padding-left:15px;
+		outline:none;
+		border-style:none;
+		border-radius: 3px;
+		color: white;
+		background-color:#0aa1ed;
+	}
+	
+	/* footer */
+	#foot_bg{
+		width: 100%;
+		background-color: #F5F5F5;
+	}
+	#foot_box{
+		margin:0 auto;
+		width: 1200px;
+		height: 82px;
+		padding:40px 30px 50px 30px;;
+	}
+	.icon1{
+		position: relative;
+	}
+	#foot_box h3{
+		display:block;
+		margin:0 5px;
+		font-size: 13px;
+		font-weight:normal;
+		width: 60px;
+		color:rgb(152,154,152);
+	}
+	#foot_box div{	
+		float: left;
+		margin-left: 200px;
+	}
+	/* foot last */
+	.foot_last{
+		width:1200px;
+		overflow:hidden;
+		margin:0px auto;
+		padding-top:80px;
+	}
+	.foot_last>div{
+		float: left;
+	}
+	.foot1{
+		margin-left:100px;
+	}
+	.foot3{
+		padding:0 100px;
+	}
+	.foot2>ul{
+		float: left;
+		margin-left:20px;
+		margin-top: 0;
+	}
+	.foot2>ul>li{
+		list-style: none;
+		line-height: 30px;
+	}
+	.foot2 a{
+		text-decoration: none;
+	    color: #808080;
+    	font: 12px simhei;
+	}
+	.foot2 span{
+	    color: #333;
+   		font: 14px simhei;
+	}
+	.foot2 img{
+		position: relative;
+		left: 3px;
+	}
+	.foot3 div{
+		float: left;
+		margin-right: 10px;
+	}
+	.foot3 p{
+		display:block;
+		margin: 0 0 14px 0;
+		color: #333;
+  		font: 14px simhei;
+  		position: relative;
+  		left:20px;
+	}
+	.record{
+		text-align: center;
+		margin-bottom: 30px;
+		font-size: 12px;
+	}
+	
+	

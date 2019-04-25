@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>伪类选择器</title>
+<style type="text/css">
+	/*访问过的状态*/
+	a:visited{
+		color:gray;
+	}
+	
+	/* 未访问 */
+	a:link {
+		color:red;
+	}
+	
+	/* 鼠标悬停状态  注意：必须写在visited和link下面 */
+	a:hover{
+		color:blue;
+	}
+	
+	/* 鼠标点击时的状态  注意：必须要写在hover的下面 */
+	a:active{
+		color:pink;
+	}
+	
+</style>
+</head>
+<body>
+	<a href="demo1.html">超链接1</a>
+	<a href="demo3.html">超链接3</a>
+	<a href="demo4.html">超链接4</a>
+	<a href="demo5.html">超链接5</a>
+</body>
+</html>

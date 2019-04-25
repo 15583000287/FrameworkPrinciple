@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>选择器</title>
+<link rel="stylesheet" href="first.css">
+<style type="text/css">
+	/* 
+		选择器：
+			标签选择器：
+			id选择器：如果要给页面中的某个元素添加样式使用id选择器
+			class选择器：
+			任意元素选择器：*{}  优先级低  因为选择的范围大
+			属性选择器：input[type='text']{ color:red; }
+			子孙选择器：div span a / div a
+			子元素选择器：div>a  只选择当前元素的下一级指定标签
+	 */
+	
+	div span a{
+		background-color: yellow;
+	}
+	
+	div a{
+	color:pink;
+	}
+	
+	div>a{
+		border:1px solid blue;
+	}
+	
+	ul>ul>li{
+		background-color: green;
+	}
+	
+	ul>li{
+		background-color: blue;
+	}
+</style>
+</head>
+<body>
+	<div>
+		<span>
+			<a href="#">超链接1</a>
+		</span>
+		<a href="#">超链接2</a>
+	</div>
+	<a href="#">超链接3</a>
+	<span>
+		<a href="#">超链接4</a>
+	</span>
+	
+	<ul>
+		<li>凉菜</li>
+		<ul>
+			<li>凉拌皮蛋</li>
+			<li>凉拌牛肉</li>
+		</ul>
+		<li>炖菜</li>
+		<ul>
+			<li>小鸡炖蘑菇</li>
+			<li>西红柿牛腩</li>
+		</ul>
+
+	</ul>
+</body>
+</html>

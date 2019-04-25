@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo3 location</title>
+<script type="text/javascript">
+	function myfn(){
+		//判断是否以http开头
+		var reg = /^http/;
+		if(reg.test(i1.value)){
+			location.href=i1.value;
+		}else{
+			location.href="http://"+i1.value;
+		}
+	}
+</script>
+</head>
+<body>
+	<input type="text" placeholder="请输入访问地址" id="i1">
+	<input type="button" value="访问" onclick="myfn()">
+</body>
+</html>

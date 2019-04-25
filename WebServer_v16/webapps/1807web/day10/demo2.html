@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo2</title>
+<style type="text/css">
+	img{
+		width: 800px;
+		height: 400px;
+		position: absolute;
+	}
+	div{
+		width: 800px;
+		height: 400px;
+		border:1px solid red;
+		position: relative;
+		margin: 0 auto;
+		/* 超出范围不显示 */
+		overflow: hidden;
+	}
+</style>
+<script type="text/javascript">
+	onload = function(){
+		var imgs = document.getElementsByTagName("img");
+		for(var i=0;imgs.length;i++){
+			imgs[i].style.left = i*800+"px";
+		}
+	}
+	
+	//开启计时的定时器
+	/* setInterval(function() {
+		next();
+	}, 3000); */
+	//js中next在标签内部时才加小括号
+	var timeId = setInterval(next, 4000);
+	
+	function next(){
+		/* 开启移动图片定时器 */
+		var moveId  = setInterval(function() {
+			var imgs = document.getElementsByTagName("img");
+			for(var i=0;i<imgs.length;i++){
+				var img = imgs[i];
+				//得到原来的left
+				var oldLfet = parseInt(img.style.left);
+				oldLfet-=2;
+				//把值设置回去
+				img.style.left = oldLfet+"px";
+				if(oldLfet<=-800){
+					oldLfet = (imgs.length-1)*800;
+					//停止定时器
+					clearInterval(moveId);
+				}
+				//朝把值设置回去
+				img.style.left = oldLfet+"px";
+			}
+		}, 1);
+	}
+	
+	function stop(){
+		//停止定时器
+		clearInterval(timeId);
+	}
+	function start(){
+		//为了保证同时执行的定时器只有一个，每次执行前先关闭一下
+		clearInterval(timeId);
+		//开启定时器
+		timeId = setInterval(next, 3000);
+	}
+	
+	/* 页面失去焦点事件*/
+	onblur = function(){
+		stop();
+		
+	}
+	/* 页面获取焦点 */
+	onfocus = function(){
+		start();
+	}
+</script>
+</head>
+<body>
+	<div onmouseover="stop()" onmouseout="start()">
+		<img src="imgs/csuv.jpg">
+		<img src="imgs/jl.jpg">
+		<img src="imgs/k8.jpg">
+		<img src="imgs/wk.jpg">
+	</div>
+</body>
+</html>

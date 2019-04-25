@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	body{
+		background-image: url("../../web/images/regist.png");
+	}
+	#username,#password{
+		/* width: 300px; */
+		position: relative;
+	}
+	input{
+		width:258px;
+		height: 16px;
+		padding: 10px 20px;
+		margin:10px 0;
+		border: 1px solid white;
+	}
+	#big{
+		margin:150px 300px;
+		width:300px;
+		background-color: rgba(0,0,0,0.3);
+		border: 1px solid green;
+	}
+	img{
+		position: absolute;
+		right:10px;
+		top:15px;
+	}
+	div>div>div{
+		color: red;
+		font-size: 12px;
+	}
+</style>
+</head>
+<body>
+	<div id="big">
+		<div id="username">
+			<input type="text" placeholder="请输入您的用户名">
+			<img  src="../../web/images/login/yhm.png">
+			<div>用户名不能为空！</div>
+		</div>
+		
+		<div id="password">
+			<input type="password" placeholder="请输入您的密码">
+			<img  src="../../web/images/login/mm.png">
+			<div>密码不能为空！</div>
+		</div>
+	</div>
+</body>
+</html>

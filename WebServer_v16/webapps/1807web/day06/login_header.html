@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>学子商城登陆</title>
+<style type="text/css">
+ 	body{
+		margin-left:0px;
+		margin-right:0px;
+	}
+	#top{
+		width: 1000px;
+		height: 52px;
+		margin:0 auto;
+		margin-bottom: 30px;
+   		margin-top: 20px;
+	}
+	.top{
+		width: 960px;
+		height: 46px;
+		margin-left: 40px;
+	}
+	#top span{
+		color: #4f4d4e;
+		font-size: 24px;
+		position: relative;/* 相对于本身位置  不脱离文档流*/
+		top:-7px;
+		left:10px;
+	}
+	
+	/* 中间部分 */
+	#form_div{
+		height: 560px;
+		background-image: url(../../web/images/regist.png);
+		border-top: 1px solid skyblue;
+		color: white;
+	}
+	
+	.form_panel{
+		width: 273px;
+		height: 297px;
+		float: right;
+		margin:122px 122px 0 0;
+		padding:10px;
+		background-color: rgba(0,0,0,0.3);
+		font-size: 12px;
+	}
+	.form_panel>p{
+		font-size: 18px;
+		border-bottom: 1px solid white;
+		padding-bottom: 10px;
+	}
+	.form_panel a{
+		font-size: 12px;
+		color:white;
+		text-decoration: none;/* 去掉超链接下划线 */
+		position: absolute;
+	}
+	
+	#username{
+		border: 1px solid red;
+		position: relative;	/* 位置参考  */
+		margin-top: 60px;
+	}
+	#username>input{
+		padding:10px 20px;
+		border: 1px solid white;
+		width: 211px;
+		height: 16px;
+	}
+	#username>img{
+		position: absolute;
+		right:20px;
+		top:15px;
+	}
+	div>div>div{
+		color: red;
+		font-size: 12px;
+		margin-top: 8px;
+	}
+	
+	#service_id{
+		width: 1000px;
+		margin: 600px auto;
+		overflow: hidden;
+	}
+	/* 中间下面 */
+	#service_id>div{
+		float: left;
+		width: 250px;
+		text-align: center;
+		color: #666;
+		font-size: 12px;
+	}
+	
+	
+
+</style>
+</head>
+<body>
+	<header id="top">
+		<div class="top">
+			<img  src="../../web/images/header/logo.png">
+			<span>欢迎登录</span>
+		</div>
+	</header>
+	
+	<article id="form_div">
+		<div class="form_panel">
+			<p>登录学子商城</p>
+			<a href="#">新用户注册</a>
+			<div id="username">
+				<input type="text" placeholder="请输入您的用户名" >
+				<img  src="../../web/images/login/yhm.png">
+				<div>用户名不能为空！</div>
+			</div>
+			<!-- 密码 -->
+			
+			
+			<div id="autologin_div">
+				<div type="checkbox" id="autologin"></div>
+				<label for="autologin">自动登录</label>
+				<a href="#">忘记密码？</a>
+			</div>
+		</div>
+		
+		<div id="service_id">
+			<div>
+			<img  src="../../web/images/footer/icon1.png">
+			<p>品质保障</p>
+		</div>
+		<div>
+			<img  src="../../web/images/footer/icon2.png">
+			<p>私人订制</p>
+		</div>
+		<div>
+			<img  src="../../web/images/footer/icon3.png">
+			<p>学员特供</p>
+		</div>
+		<div>
+			<img  src="../../web/images/footer/icon4.png">
+			<p>专属特权</p>
+		</div>
+		</div>
+	</article>
+	
+	<!-- 底部 -->
+	<footer>
+		<div>
+			<div id="left"></div>
+			<div id="center"></div>
+			<div id="right"></div>
+		</div>
+		<p>©2017 达内集团有限公司 版权所有 京ICP证xxxxxxxxxxx</p>
+	</footer>
+	<hr>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo8</title>
+<style type="text/css">
+	img{
+		width: 400px;
+		height: 200px;
+	}
+	div{
+		width: 800px;
+		height: 400px;
+		margin: 5px;
+		background-color: #DDDDDD;
+	}
+</style>
+<script type="text/javascript">
+	function myfn(div){
+		//通过div得到里面的img图片
+		var img = div.getElementsByTagName("img")[0];
+		//判断图片是否隐藏
+		if(img.style.display=="none"){
+			img.style.display="block";
+		}else{
+			img.style.display="none";
+		}
+	}
+</script>
+</head>
+<body>
+	<div onclick="myfn(this)">
+		<img src="imgs/csuv.jpg">
+	</div>
+	<div onclick="myfn(this)">
+		<img src="imgs/jl.jpg">
+	</div>
+	<div onclick="myfn(this)">
+		<img src="imgs/k8.jpg">
+	</div>
+</body>
+</html>

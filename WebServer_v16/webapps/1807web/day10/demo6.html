@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo6 省市二级联动</title>
+<script type="text/javascript">
+	var arr = [["石家庄","秦皇岛","唐山"],["哈尔滨","佳木斯","齐齐哈尔"],["青岛","烟台","济南"]];
+	function changefn(){
+		s2.innerHTML = "<option>请选择</option>"
+		//s2.length=1;
+		var citys = arr[s1.value];
+		for(var i=0;i<citys.length;i++){
+			var ele = document.createElement("option");
+			ele.innerText = citys[i];
+			s2.appendChild(ele);
+		}
+	}
+</script>
+</head>
+<body>
+	<select id="s1" onchange="changefn()">
+		<option>请选择</option>
+		<option value="0">河北</option>
+		<option value="1">黑龙江</option>
+		<option value="2">山东</option>
+	</select>
+	
+	<select id="s2">
+		<option>请选择</option>
+	</select>
+</body>
+</html>

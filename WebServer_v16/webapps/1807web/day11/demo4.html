@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo4</title>
+<style type="text/css">
+	div{
+		width: 1000px;
+		height: 1000px;
+		background-color: pink;
+		position: relative;	
+	}
+</style>
+<script type="text/javascript">
+	function fn1(){
+		alert("标签中绑定事件");
+	}
+	onload = function(){
+		//动态给元素添加点击事件
+		i2.onclick = function(){
+			alert("动态绑定成功！");
+		}
+		
+	}
+	
+	//一秒往div中添加5个小div
+	setInterval(function() {
+		var div = document.createElement("div");
+		div.style.width = "20px";
+		div.style.height = "20px";
+		div.style.position = "absolute";
+		div.style.backgroundColor = "red";
+		div.style.left = Math.floor(Math.random()*980)+"px";
+		div.style.top = Math.floor(Math.random()*980)+"px";
+		d1.appendChild(div);
+		//给span添加事件  点击删除当前点击的div  删除事件源
+		div.onmouseover = function(){
+			d1.removeChild(event.target || event.srcElement);
+		}
+	}, 200);
+</script>
+</head>
+<body>
+	<input type="button" value="标签中绑定事件" onclick="fn1()">
+	<input id="i2" type="button" value="动态绑定事件">
+	<div id="d1"></div>
+</body>
+</html>

@@ -1,0 +1,94 @@
+var pageName = '';
+$(function(){
+	
+    console.log('Jeep，专业SUV制造者');
+
+    var _win = {
+        w: $(window).width(),
+        h: $(window).height()
+    };
+
+
+    // init kv
+    resizeKV();
+    function resizeKV(){
+        $('.kvBox').height(_win.h - $('header').height());
+    }
+
+    var kv = new Swiper('.kvBox .swiper-container', {
+        spaceBetween: 30,
+        autoplay: {
+            delay: 5000,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+
+
+    $('.kvBox').on('click','.swiper-slide',function(){
+        var url = $(this).data('url');
+        if(url == 'travel'){
+            return;
+        }
+        location.href = urls[url];
+    });
+
+    // carsflow
+    var carsflow = new Swiper('.carsflow .swiper-container', {
+        slidesPerView: 'auto',
+        // slidesPerView: 5,
+        loop : true,
+        initialSlide :2,
+        centeredSlides: true,
+        navigation: {
+            nextEl: '.swiper-next',
+            prevEl: '.swiper-prev',
+        },
+    });
+
+    $('.carsflow').on('click','.swiper-box',function(){
+        var url = $(this).data('url');
+        location.href = urls[url];
+    });
+
+    // functional
+    // $('.functional .mainContent > a').on('mouseenter',function(){
+    //     $(this).width('34%').siblings().width('22%');
+    // });
+    // $('.functional .mainContent').on('mouseleave',function(){
+    //     $(this).children().width('25%');
+    // });
+
+    // entries
+    $('.entries .nav > a').on('mouseenter',function(){
+        var i = $(this).index(),
+            parent = $('.bg');
+        $(this).addClass('on').siblings().removeClass('on');
+        // parent.children('a').removeClass('on').eq(i).addClass('on');
+    })
+
+    // 在线客服
+    $('.online-chat').on('click',function(){
+        // window.open('http://services.jeep.com.cn/webchat_new/static/html/index.html?ht=pcweb','','width=1340,height=700')
+        openWin('http://services.jeep.com.cn/webchat_new/static/html/index.html?ht=pcweb','',1320,800)
+    });
+
+    // resize
+    $(window).resize(function(){
+        resizeKV();
+    });
+    function openWin(url,name,iWidth,iHeight) {
+        //获得窗口的垂直位置
+        var iTop = (window.screen.availHeight - 30 - iHeight) / 2;
+        //获得窗口的水平位置
+        var iLeft = (window.screen.availWidth - 10 - iWidth) / 2;
+        window.open(url, name, 'height=' + iHeight + ',innerHeight=' + iHeight + ',width=' + iWidth + ',innerWidth=' + iWidth + ',top=' + iTop + ',left=' + iLeft + ',status=no,toolbar=no,menubar=no,location=no,resizable=no,scrollbars=0,titlebar=no');
+    }
+	$('.carsflow .swiper-slide img').mouseover(function(){
+		$('.carsflow').addClass('carson')
+	}).mouseleave(function(){
+		$('.carsflow').removeClass('carson')
+	})
+});

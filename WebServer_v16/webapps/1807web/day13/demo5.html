@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo事件模拟</title>
+<script type="text/javascript" src="../jq/js/jquery-1.4.2.js"></script>
+<script type="text/javascript">
+	setTimeout(function() {
+		//模拟按钮单击事件
+		$("input").trigger("click"); //触发器
+	}, 3000);
+
+	$(function() {
+		$("div").hover(function() {
+			//鼠标移入元素时执行
+			$("div").css("color", "red");
+		}, function() {
+			//鼠标移出元素时执行
+			$("div").css("color", "green");
+		})
+	})
+</script>
+</head>
+<body>
+	<input type="button" value="点我试试" onclick="alert('试试就试试！')">
+	<div>这是个div</div>
+</body>
+</html>

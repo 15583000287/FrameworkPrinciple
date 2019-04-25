@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo6</title>
+</head>
+<body>
+	<!-- 
+		 <img> 是单标签
+		 alt=""图片不能正常显示时显示此内容 
+		 src:路径
+		 	相对路径： ./当前目录，一般可以省略   
+		 			../返回上一级目录
+		 	绝对路径：以http开头
+		 		如果访问站内资源使用相对路径
+		 		如果访问站外资源使用绝对路径,访问站外资源如果人家网站路径改变，则不能正常显示
+		 		
+		 支持的图片格式：jpg/jpeg
+		 			png	支持透明色
+		 			gif	动图
+		 title:鼠标悬停时显示的内容
+		 width/height:两种赋值方式 1.像素    2.百分比
+		 			  如果只设置宽度，则高度会根据原始宽高比自动缩放
+	-->
+	<img alt="图片" src="./a.jpg" title="美国街头" width="50%"><br>
+	<img alt="图片" title="站外资源" src="http://cdn.tmooc.cn/bsfile//imgad///136E24B2BBB34C1B8EF10B97A442EF18.jpg">
+</body>
+</html>

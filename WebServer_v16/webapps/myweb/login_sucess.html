@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="GBK">
+<title></title>
+<script>
+	var time = 3;
+	var timer = setInterval('tiaozhuan()', 1000);
+	function tiaozhuan() {
+		var t = document.getElementById("id8");
+		if (time > 0) {
+			t.innerHTML = time;
+			time--;
+		} else {
+			clearInterval(timer);
+			location.href = "../myweb/index.html";
+		}
+	}
+</script>
+</head>
+<body>
+	<h1>登陆成功！</h1>
+	<font id="id8" size="7">3</font>秒钟后自动跳转到主页
+	<a href="../myweb/login.html">或点击我直接跳转</a>
+</body>
+</html>

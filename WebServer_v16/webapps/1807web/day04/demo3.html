@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo3</title>
+<style type="text/css">
+	div{
+		width :100px;
+		height: 100px;
+		background-color: skyblue;
+		/* 内边距会影响元素的宽高
+			单独设置： padding-left: 20px;
+			padding: 10px;  四个边的内边距都是10px
+			padding: 10px 20px; 上下10 左右20
+		 */
+		/* padding-left: 20px;
+		padding-top: 20px; */
+		
+		padding: 10px 20px 30px 40px; 上右下左(顺时针)
+	}
+	#s2{
+		border: 1px solid red;
+	}
+	span{
+		margin-left: 10px;
+		padding-top: 100px;
+		border: 20px solid red;
+	}
+</style>
+</head>
+<body>
+	<div id="div1">div1</div>
+	<span>span1</span><span>span2</span><span>span3</span>
+	<div id="s2">div2</div>
+</body>
+</html>

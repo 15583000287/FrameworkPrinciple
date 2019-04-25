@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo2</title>
+<script type="text/javascript">
+	for(var i=0;i<5;i++){
+		console.log(i);
+	}
+	
+	function fun1(a,b){
+		return a+b;
+	}
+	var str = fun1('hello','world');
+	document.write(str);
+	
+	//第二种方式定义函数
+	 var fun3 = function(a,b){
+	 }
+	 fun3(a,b);
+</script>
+</head>
+<body>
+	<input type="button" value="测试1" onclick="alert('66'+6)">
+	<input type="button" value="测试2" onclick="alert(fun1('hello','world'))">
+</body>
+</html>

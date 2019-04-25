@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo2</title>
+<script type="text/javascript">
+	function downfn(){
+		//将字符编码转换成字符
+	 	var str = String.fromCharCode(event.keyCode);
+		console.log("键盘按下"+event.keyCode + "-----"+str);
+	}
+	function upfn(){
+		console.log("键盘抬起");
+	}
+</script>
+</head>
+<body>
+	<input type="text" onkeydown="downfn()" onkeyup="upfn()">
+</body>
+</html>

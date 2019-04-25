@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>添加div</title>
+<style type="text/css">
+	.red{
+		width:100px;
+		height:100px;
+		background-color: red;
+	}
+	.blue{
+		width:100px;
+		height:100px;
+		background-color: blue;
+	}
+</style>
+
+<script type="text/javascript">
+	function fn(color){
+		var d1 = document.getElementById("d1");
+		d1.innerHTML+="<div class= '"+ color +"'></div>";
+	}
+</script>
+</head>
+<body>	
+	<input type="button" value="红色" onclick="fn('red')">
+	<input type="button" value="蓝色" onclick="fn('blue')">
+	<div id="d1">111</div>
+</body>
+</html>

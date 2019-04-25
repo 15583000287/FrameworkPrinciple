@@ -1,0 +1,148 @@
+##JavaScript 
+	用于给页面添加动态效果或动态内容的。
+	安全性：只能访问浏览器中的内容。
+
+#引入JavaScript方法
+	可以写在页面中的任何位置，建议写到head中
+	三种
+	引入外部js:（标签体内不能再写js代码）
+		<script type="text/javascript" src="first.js"></script>
+#js语法
+		
+#数据类型
+	number 数值类型
+		NaN(Not a Number)     isNaN(18) false    isNaN("18") false   
+	string
+	boolean
+	undefined
+	object
+	
+#变量的定义
+	var 
+
+#数据类型的隐式转换
+1.数值类型
+	转字符串："abc"+18   "abc18"   注意：只有加法会把数值转换为字符串  
+	转布尔值：0和NaN转false  非0为真                    20-->true;
+2.字符串类型
+	转数值：能转就直接转(除了加法不转本身)"20"-2   18
+	转布尔值：
+..........
+..........
+
+
+##运算符
+	与java中大致相同
+	不同点：
+	* ==和===  
+		 ==会将等号两端的类型统一，然后再比较值
+		 ===先判断类型是否相等，如果类型不相等直接false   类型相等再比较值
+	* typeof     typeof 66+6 ="number6"
+	* 两数相乘，结果会自动生成整数或小数
+	
+##语句
+	与java中的语句大致相同
+	不同点：
+	1.语句中写条件的括号中如果不是boolean类型，则会自动转为boolean类型
+	2.for循环中的int改为var  不支持增强for
+	
+##函数声明
+	第一种方式：(常用)
+	function fun(age,name){
+		return "abc";
+	}
+	
+	第二种方式：
+	var fun2 = function(a,b){
+		
+	}
+	fun2();	
+		
+getElementById("id")	获取指定id元素
+innerText  给元素设置文本内容
+innerHTML  给元素设置HTML内容
+	
+
+
+##String相关
+parseInt(str)   把字符串小数转成整数
+parseFloat(str) 把字符串转成小数
+Number(str)	等效parseFloat
+
+indexOf
+lastIndexOf
+subString(start,[end])
+replace(old,new)
+
+四舍五入  toFixed(2)  2-保留的小数位数
+
+#创建数组
+	方式1：
+	var arr1 = ["小明",18,false];
+	方式2：
+	
+	var arr2 = new Array();
+	arr2.push("xxx");
+	
+	reverse() 数组逆序
+	sort() 默认排序方式是以字符串形式排序
+	
+
+#日期相关函数
+-服务器时间和客户端时间
+1.获取客户端时间：
+	var d1 = new Date();
+2. 把从服务器得到的一个字符串时间转换成时间对象
+	var d2 = new Date("2018/9/30 14:33:19");
+3.从时间对象中获取和设置时间戳
+	d2.getTime();
+	d2.setTime(1000);
+4.获取时间分量
+	getFullYear()
+	getMonth() 获取月份 从0开始
+	getDate() 获取日
+	getDay() 获取星期
+	getHours()
+	getMinutes()
+	getSeconds()
+获取年月日 时分秒
+	toLocaleDateString() 年月日
+	toLobaleTimeString()  时分秒
+	
+	
+##正则表达式
+. 匹配任意字符除了换行
+\w 数字，字母，下划线
+\d 数字
+\s 空格
+^  开头	
+$  结尾
+--应用场景：1.查找内容  2.校验文本
+
+
+--创建的两种方式
+1.第一个/代表的是规则   第二个参数表示模式(i:忽略大小写  g:全局查找， 第一次找第一个 第二次找第二个 找不到为null)
+	6-10位数字字母下划线
+	var reg =/^\w{6,10}$/;
+	
+2.第一个是参数，第二个是模式(第二个参数没有值可以省略)
+	var reg2 = new RegExp("^\\w{6,10}$");
+	
+
+	1.查找内容    全局查找  第一次找第一个 第二次找第二个 找不到为null
+		var str = "you can you up no can no b b";
+		var reg3 = /no/g;
+		alert(reg3.exec(str)); //no
+		alert(reg3.exec(str)); //no
+		alert(reg3.exec(str)); //null
+	
+	2.校验方法
+		reg = /^You/i;
+		alert(reg.test(str));
+		
+	3.查找内容
+		var arr = str.match(reg3);
+		alert(arr);
+	
+	4.查找替换 替换所有
+		alert(str.replace(reg3, "bu"));

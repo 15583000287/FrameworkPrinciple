@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo66省市联动</title>
+<script type="text/javascript">
+	var arr = [["成都","南充","泸州"],["万州区","巴南区","渝北区"],["银川","固原","吴忠"]];
+	function changeCity(){
+		s2.innerHTML = "<option>请选择</option>";
+		var citys = arr[s1.value];
+		for(var i=0;i<citys.length;i++){
+			s2.innerHTML += "<option>"+citys[i]+"</option>";
+		}
+	}
+</script>
+</head>
+<body>
+	<select id="s1" onclick="changeCity()">
+		<option>请选择</option>
+		<option value="0">四川</option>
+		<option value="1">重庆</option>
+		<option value="2">宁夏</option>
+	</select>
+	<select id="s2">
+		<option>请选择</option>
+	</select>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo4</title>
+<script type="text/javascript">
+	onclick = function(){
+		//创建元素
+		var h = document.createElement("h1");
+		h.innerText="lala";
+		//添加元素到某个元素里面
+		//document.body.appendChild(h);
+		//插入元素到某个元素的上面
+		var d2 = document.getElementById("d2");//此处这行代码可以省略 自动添加
+		//document.body.insertBefore(h, d2);
+	}
+	
+	setTimeout(function() {
+		//删除元素
+		document.body.removeChild(d2);
+	}, 3000);
+</script>
+</head>
+<body>
+	<div>div1</div>
+	<div id="d2">div2</div>
+	<div>div3</div>
+</body>
+</html>

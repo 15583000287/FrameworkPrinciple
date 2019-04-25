@@ -1,0 +1,33 @@
+
+(function(a, e, f, g, b, c, d) {a.ClickiTrackerName = b;
+a[b] = a[b] || function() {(a[b].queue = a[b].queue || []).push(arguments)};
+a[b].start = +new Date;
+})(window, document, 'script', ('https:' == document.location.protocol ? 'https://stm-collect' : 'http://stm-cdn') + '.cn.miaozhen.com/clicki.min.js', 'stm_clicki');
+
+$.getScript('//stm-cdn.cn.miaozhen.com/clicki.min.js');
+
+stm_clicki('create', 'dc-1301', 'auto');
+stm_clicki('send', 'pageview');
+function addClickPc(LabelValue) {
+    stm_clicki('send', 'event', LabelValue, '点击');
+}
+
+ var _jcq = _jcq || [];
+ _jcq.enableHeatmap = true; // 设置热图
+ _jcq.push(['_setAccount', '7b2a8feb15cb4fe5bb395fa6d1e8095c']);
+ _jcq.push(['_host', 'jeep.com.cn']); // 配置子域
+ _jcq.push(['_pageview']);
+ _jcq.push(['_track', 'pageload',{url: document.location.href,pathname:document.location.pathname}]);
+
+$.getScript('//cdn.jice.io/js/jice.jeep.min.js');
+
+window._pt_lt = new Date().getTime();
+window._pt_sp_2 = [];
+_pt_sp_2.push('setAccount,16c85a57');
+var _protocol = (("https:" == document.location.protocol) ? "https://" : "http://");
+(function() {
+var atag = document.createElement('script'); atag.type = 'text/javascript'; atag.async = true;
+atag.src = _protocol + 'js.ptengine.cn/16c85a57.js';
+var s = document.getElementsByTagName('script')[0];
+s.parentNode.insertBefore(atag, s);
+})();

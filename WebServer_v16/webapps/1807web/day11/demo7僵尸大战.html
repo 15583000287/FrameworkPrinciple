@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html onclick="changeStatus()">
+<head>
+<meta charset="UTF-8">
+<title>demo7僵尸</title>
+<style type="text/css">
+	body{
+		margin: 0;/* 去掉外边距 */
+		background-image: url("imgs/bg1.jpg");
+		background-repeat: no-repeat;
+		overflow: hidden;
+	}
+	body:hover{
+		cursor: pointer;
+	}
+	
+	img{
+		width: 80px;
+		height: 70px;
+		position: absolute;
+	}
+	
+	#d1{
+		position: relative;
+		color: white;
+		top: 30px;
+		font-weight: bold;
+		font-size: 20px;
+	}
+	#left{
+		position: absolute;
+		left: 50px;
+	}
+	#right{
+		position: absolute;
+		right: 100px;
+	}
+	
+	/* 功能按钮 */
+	span{
+		font-size: 13px;
+		font-weight: normal;
+		position: absolute;
+		top:50px;
+		left: 50px;
+		display: block;
+	}
+	span:hover{
+		font-weight: bold;
+		cursor:pointer;
+	}
+	
+	/* 暂停效果 */
+	.pause{
+		width: 100px;
+		background-color: rgba(255,255,255,0.4);
+		color: gray;
+		font-size: 30px;
+		padding: 100px 100px;
+		position: absolute;
+	}
+}
+</style>
+
+<script type="text/javascript">
+	onload = function(){
+		changeSize();
+		addfn();
+		movefn();
+	}
+	
+	//当窗口尺寸发生改变事件
+	onresize = function(){
+		changeSize();
+	}
+	
+	//背景图片随着窗口改变
+	function changeSize(){
+		var w = document.body.clientWidth;//body宽
+		var h = document.body.parentElement.clientHeight;//html高
+		document.body.clientHeight = h+"px";
+		//alert(w+"  "+h);
+		//把得到的宽高设置给背景图片
+		document.body.style.backgroundSize = w+"px " +h+"px";
+	}
+	
+
+	//添加图片定时器
+	var addTime;
+	function addfn(){
+		//僵尸数组
+		var imgArr = ["imgs/zomb0.png","imgs/zomb1.png","imgs/zomb2.png","imgs/zomb3.png"];
+		addTime = setInterval(function() {
+			var img = document.createElement("img");
+			var index = Math.floor(Math.random()*4)
+			img.src = imgArr[index];
+			img.style.right = "-70px";
+			var topindex = parseInt(Math.random()*(document.body.parentElement.clientHeight-70));
+			img.style.top = topindex +"px";
+			document.body.appendChild(img);
+		}, 500);
+	}
+	
+	var moveTime;
+	function movefn(){
+		//图片移动定时器
+		var fail = 0;
+		moveTime = setInterval(function() {
+			var imgs = document.getElementsByTagName("img");
+			for(var i=0;i<imgs.length;i++){
+				var im = imgs[i];
+				var big = parseInt(im.style.right);
+				big +=2;
+				im.style.right = big+"px";
+				if(big>document.body.clientWidth){
+					document.body.removeChild(im);
+					fail++;
+				}
+			}
+			right.innerText = "失败次数："+fail;
+		}, 10);
+	}
+	
+	//杀敌方法
+	var seccess = 0;
+	function palyfn(){
+		var obj = event.target || event.srcElement;
+		//如果在动态绑定事件中 this代表当前事件源
+		if(obj.nodeName =="IMG"){
+			document.body.removeChild(obj);
+			seccess++;
+			left.innerText =  "成功次数："+seccess;
+		}
+	}
+	
+	//改变背景图片
+	var changeNum = 1;
+	function changeBg(){
+		if(changeNum%2==0){
+			document.body.style.backgroundImage="url('imgs/bg1.jpg')";
+			s1.innerText = "夜间模式";
+		}else{
+			document.body.style.backgroundImage="url('imgs/bg2.jpg')";
+			s1.innerText = "白天模式";
+		}
+		changeNum++;
+	}
+	
+	//暂停/启动方法
+	var count = 0;
+	var pause;
+	function changeStatus(){
+		if(event.target.nodeName=="HTML"){
+			count++;
+			if(count%2!=0){
+				//暂停
+				addTime = clearInterval(addTime);
+				addTime = clearInterval(moveTime);
+				//暂停样式
+				pause = document.createElement('div');
+				pause.innerText = "PAUSE";
+				pause.className = "pause";
+				pause.style.left = document.body.clientWidth/2-150 +"px";
+				pause.style.top = document.body.parentElement.clientHeight/2-100 +"px";
+				document.body.appendChild(pause);
+			}else{
+				//清楚暂停样式
+				document.body.removeChild(pause);
+				//启动
+				addfn();
+				movefn();
+			}
+		}
+	}
+	
+</script>
+</head>
+<body onmouseover="palyfn()">
+	<div id="d1">
+		<div id="left">成功次数: 0</div>
+		<div id="right">失败次数: 0</div>
+		<span id="s1" onclick="changeBg()">夜间模式</span>
+	</div>
+</body>
+</html>

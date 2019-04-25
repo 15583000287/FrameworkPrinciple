@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>正则表达式</title>
+<script type="text/javascript">
+	//第一种方式：第一个/代表的是规则   第二个参数表示模式(i:忽略大小写  g:全局查找，依次查找，找不到为null)
+	//6-10位数字字母下划线
+	var reg =/^\w{6,10}$/;
+	
+	//第二种方式 第一个是参数，第二个是模式(第二个参数没有值可以省略)
+	var reg2 = new RegExp("^\\w{6,10}$");
+	
+	//和正则相关的方法
+	//1.查找内容    全局查找  第一次找第一个 第二次找第二个 找不到为null
+	var str = "you can you up no can no b b";
+	var reg3 = /no/g;
+	//alert(reg3.exec(str)); //no
+	//alert(reg3.exec(str)); //no
+	//alert(reg3.exec(str)); //null
+	
+	//2.校验方法
+	//reg = /^You/i;
+	//alert(reg.test(str));
+	
+	//3.查找内容
+	//var arr = str.match(reg3);
+	//alert(arr);
+	
+	//4.查找替换 替换所有
+	alert(str.replace(reg3, "bu"));
+</script>
+</head>
+<body>
+	
+</body>
+</html>

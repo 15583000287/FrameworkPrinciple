@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>demo2</title>
+<script type="text/javascript" src="../jq/js/jquery-1.4.2.js"></script>
+<script type="text/javascript">
+	var arr = [["石家庄","秦皇岛","唐山"],["哈尔滨","佳木斯","齐齐哈尔"],["青岛","烟台","济南"]];
+	$(function(){
+		//给第一个下拉选添加事件(事件传递 给大的添加  小的通过this判断到底点了谁)
+		$("select:first").change(function() {
+			//清空之前内容
+			$("select:last").html("<option>请选择</option>");
+			var citys = arr[$(this).val()];
+			//遍历
+			for(var i=0;i<citys.length;i++){
+				var opt = $("<option></option>");
+				opt.text(citys[i]);
+				//把创建好的option添加第二个下拉选中
+				$("select:last").append(opt);
+			}
+		});
+	})
+</script>
+</head>
+<body>
+	<select>
+		<option>请选择</option>
+		<option value="0">河北</option>
+		<option value="1">黑龙江</option>
+		<option value="2">山东</option>
+	</select>
+	
+	<select>
+		<option>请选择</option>
+	</select>
+</body>
+</html>
